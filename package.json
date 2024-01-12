@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bootstrap": "^4.6.0",
     "classnames": "^2.5.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.9.2",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "sprintf-js": "^1.1.3"
   },
   "devDependencies": {
