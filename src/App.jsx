@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import Loading from "./components/pages/Loading.jsx";
 import useLoading from "./components/hooks/useLoading.jsx";
-import Prodi from "./components/pages/prodi/Prodi.jsx";
+import { LoadingProvider } from "./components/context/LoadingProvider.jsx";
+import { AuthProvider } from "./components/context/AuthContext.jsx";
+import { Router } from "./Router.jsx";
 
 export default function App() {
 	const { isLoading } = useLoading();
+
 	return (
-		<>
-			<Prodi></Prodi>
-			{isLoading && <Loading/>}
+		<AuthProvider>
+			<LoadingProvider>
+				<Router/>
+			</LoadingProvider>
+			{isLoading && <Loading />}
 			<Toaster position="top-right" reverseOrder={false} />
-		</>
+		</AuthProvider>
 	);
 }
