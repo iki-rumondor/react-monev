@@ -12,7 +12,7 @@ export default function ProfileDropdown({ children, username = "Ilham" }) {
 				>
 					<img
 						alt="image"
-						src="src/assets/img/avatar/avatar-1.png"
+						src="/src/assets/img/avatar/avatar-1.png"
 						className="rounded-circle mr-1"
 					/>
 					<div className="d-sm-none d-lg-inline-block">

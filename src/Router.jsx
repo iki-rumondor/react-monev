@@ -5,6 +5,7 @@ import Login from "./components/pages/auth/Login";
 import { RequireAuth } from "./components/utils/RequireAuth";
 import { RequireLogout } from "./components/utils/RequireLogout";
 import Logout from "./components/pages/auth/Logout";
+import AssessmentType from "./components/pages/assessment_type/Index";
 
 export const Router = () => {
 	return (
@@ -12,6 +13,7 @@ export const Router = () => {
 			<Routes>
 				<Route element={<RequireAuth />}>
 					<Route path="/prodi" element={<Prodi />} />
+					<Route path="/assessments/type" element={<AssessmentType />} />
 					<Route path="/logout" element={<Logout />} />
 				</Route>
 				<Route element={<RequireLogout />}>

@@ -6,13 +6,13 @@ export default function DashboardLayout({ header, children }) {
 	return (
 		<>
 			<Navbar />
-			<Sidebar title={"e-Konsul"} subtitle={"e-K"}>
+			<Sidebar title={"i-Monev"} subtitle={"iM"}>
 				<Sidebar.HeaderLink>Master</Sidebar.HeaderLink>
 				<Sidebar.Link path={"/prodi"} icon={"fa-user"}>
 					Program Studi
 				</Sidebar.Link>
-				<Sidebar.Link path={"/tipe-instrumen"} icon={"fa-user"}>
-					Tipe Instrumen
+				<Sidebar.Link path={"/assessments/type"} icon={"fa-bookmark"}>
+					Tipe Penilaian
 				</Sidebar.Link>
 			</Sidebar>
 			<div className="main-content">
