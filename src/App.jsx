@@ -11,9 +11,7 @@ export default function App() {
 
 	return (
 		<AuthProvider>
-			<LoadingProvider>
-				<Router/>
-			</LoadingProvider>
+			<Router />
 			{isLoading && <Loading />}
 			<Toaster position="top-right" reverseOrder={false} />
 		</AuthProvider>

@@ -14,6 +14,9 @@ export default function DashboardLayout({ header, children }) {
 				<Sidebar.Link path={"/assessments/type"} icon={"fa-bookmark"}>
 					Tipe Penilaian
 				</Sidebar.Link>
+				<Sidebar.Link path={"/assessments/question"} icon={"fa-question-circle"}>
+					Pertanyaan
+				</Sidebar.Link>
 			</Sidebar>
 			<div className="main-content">
 				<section className="section">
