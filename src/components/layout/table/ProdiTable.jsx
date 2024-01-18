@@ -33,6 +33,7 @@ export default function ProdiTable() {
 						<DefaultTable.Th>Nama</DefaultTable.Th>
 						<DefaultTable.Th>Kepala Program Studi</DefaultTable.Th>
 						<DefaultTable.Th>Jurusan</DefaultTable.Th>
+						<DefaultTable.Th>Credential</DefaultTable.Th>
 						<DefaultTable.Th>Aksi</DefaultTable.Th>
 					</DefaultTable.Tr>
 				</DefaultTable.Thead>
@@ -49,6 +50,9 @@ export default function ProdiTable() {
 									{item.jurusan.nama}
 								</DefaultTable.Td>
 								<DefaultTable.Td>
+									{item.credential}
+								</DefaultTable.Td>
+								<DefaultTable.Td>
 									<Dropdown>
 										<Dropdown.Toggle
 											className="btn-sm"
@@ -59,8 +63,8 @@ export default function ProdiTable() {
 										</Dropdown.Toggle>
 
 										<Dropdown.Menu>
-											<EditProdi id={item.id} />
-											<DeleteProdi id={item.id} />
+											<EditProdi uuid={item.uuid} />
+											<DeleteProdi uuid={item.uuid} />
 										</Dropdown.Menu>
 									</Dropdown>
 								</DefaultTable.Td>

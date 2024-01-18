@@ -4,7 +4,7 @@ import { fetchData, postData } from "../../../services/api";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 
-export default function EditProdi({ id }) {
+export default function EditProdi({ uuid }) {
 	const { setIsLoading } = useLoading();
 	const [show, setShow] = useState(false);
 	const [jurusan, setJurusan] = useState([]);
@@ -32,7 +32,7 @@ export default function EditProdi({ id }) {
 
 	const loadProdi = async () => {
 		try {
-			const res = await fetchData("prodi/" + id);
+			const res = await fetchData("prodi/" + uuid);
 			setValues({
 				nama: res.nama,
 				kaprodi: res.kaprodi,
@@ -47,7 +47,7 @@ export default function EditProdi({ id }) {
 		handleClose();
 		try {
 			setIsLoading(true);
-			const res = await postData("prodi/" + id, "PUT", values);
+			const res = await postData("prodi/" + uuid, "PUT", values);
 			toast.success(res.message);
 		} catch (error) {
 			toast.error(error.message);

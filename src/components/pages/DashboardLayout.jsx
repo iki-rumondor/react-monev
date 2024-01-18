@@ -1,22 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
+import { getUserRole } from "../../services/utils";
+import { ProdiLinks } from "../layout/links/ProdiLinks";
+import { AdminLinks } from "../layout/links/AdminLinks";
 
 export default function DashboardLayout({ header, children }) {
+	const role = getUserRole();
+
 	return (
 		<>
 			<Navbar />
 			<Sidebar title={"i-Monev"} subtitle={"iM"}>
-				<Sidebar.HeaderLink>Master</Sidebar.HeaderLink>
-				<Sidebar.Link path={"/prodi"} icon={"fa-user"}>
-					Program Studi
-				</Sidebar.Link>
-				<Sidebar.Link path={"/assessments/type"} icon={"fa-bookmark"}>
-					Tipe Penilaian
-				</Sidebar.Link>
-				<Sidebar.Link path={"/assessments/question"} icon={"fa-question-circle"}>
-					Pertanyaan
-				</Sidebar.Link>
+				{role == "PRODI" ? <ProdiLinks /> : <AdminLinks />}
 			</Sidebar>
 			<div className="main-content">
 				<section className="section">

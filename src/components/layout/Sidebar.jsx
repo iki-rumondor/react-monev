@@ -24,6 +24,7 @@ const header = ({ children }) => {
 
 const link = ({ children, icon, path}) => {
 	const {pathname} = useLocation();
+	
 	return (
 		<li className={pathname == path ? "active" : ""}>
 			<Link className={"nav-link"} to={path}>
