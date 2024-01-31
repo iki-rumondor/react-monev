@@ -4,32 +4,21 @@ import { fetchData, postData } from "../../../services/api";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 
-export const CreateAssessmentQuestion = () => {
+export const CreateMajor = () => {
 	const { setIsLoading } = useLoading();
 	const [show, setShow] = useState(false);
-	const [type, setType] = useState(null);
 	const [values, setValues] = useState({
-		question: "",
-		type_uuid: "",
+		name: "",
 	});
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const loadHandler = async () => {
-		try {
-			const res = await fetchData("assessments/type");
-			setType(res.data);
-		} catch (error) {
-			toast.error(error.message);
-		}
-	};
-
 	const postHandler = async () => {
 		handleClose();
 		try {
 			setIsLoading(true);
-			const res = await postData("assessments/question", "POST", values);
+			const res = await postData("majors", "POST", values);
 			toast.success(res.message);
 		} catch (error) {
 			toast.error(error.message);
@@ -38,14 +27,11 @@ export const CreateAssessmentQuestion = () => {
 		}
 	};
 
-	useEffect(() => {
-		loadHandler();
-	}, []);
 
 	return (
 		<>
 			<Button className="mb-3" variant="primary" onClick={handleShow}>
-				Tambah Pertanyaan
+				Tambah Jurusan
 			</Button>
 
 			<Modal
@@ -55,43 +41,19 @@ export const CreateAssessmentQuestion = () => {
 				keyboard={false}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Tambah Pertanyaan</Modal.Title>
+					<Modal.Title>Tambah Jurusan</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form.Group className="mb-3" controlId="type_uuid">
-						<Form.Label>Tipe Penilaian</Form.Label>
+					<Form.Group controlId="name">
+						<Form.Label>Nama Jurusan</Form.Label>
 						<Form.Control
-							value={values.type_uuid}
-							as="select"
+							type="text"
+							value={values.name}
+							placeholder="Nama Jurusan"
 							onChange={(e) =>
 								setValues({
 									...values,
-									type_uuid: e.target.value,
-								})
-							}
-						>
-							<option disabled value={""}>
-								Pilih Tipe Penilaian
-							</option>
-							{type &&
-								type.map((item, idx) => (
-									<option value={item.uuid} key={idx}>
-										{item.type}
-									</option>
-								))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group controlId="question">
-						<Form.Label>Pertanyaan</Form.Label>
-						<Form.Control
-							as="textarea"
-							rows={3}
-							value={values.question}
-							placeholder="Tuliskan Pertanyaan"
-							onChange={(e) =>
-								setValues({
-									...values,
-									question: e.target.value,
+									name: e.target.value,
 								})
 							}
 						/>

@@ -9,9 +9,9 @@ export default function CreateProdi() {
 	const [show, setShow] = useState(false);
 	const [jurusan, setJurusan] = useState(null);
 	const [values, setValues] = useState({
-		nama: "",
-		kaprodi: "",
-		jurusan: "",
+		name: "",
+		head: "",
+		major_uuid: "",
 	});
 
 	const handleClose = () => setShow(false);
@@ -19,7 +19,7 @@ export default function CreateProdi() {
 
 	const loadHandler = async () => {
 		try {
-			const res = await fetchData("jurusan");
+			const res = await fetchData("majors");
 			setJurusan(res.data);
 		} catch (error) {
 			toast.error(error.message);
@@ -30,7 +30,7 @@ export default function CreateProdi() {
 		handleClose()
 		try {
 			setIsLoading(true)
-			const res = await postData("prodi", "POST", values);
+			const res = await postData("departments", "POST", values);
 			toast.success(res.message)
 		} catch (error) {
 			toast.error(error.message);
@@ -62,13 +62,13 @@ export default function CreateProdi() {
 					<Form.Group className="mb-3" controlId="name">
 						<Form.Label>Nama Program Studi</Form.Label>
 						<Form.Control
-							value={values.nama}
+							value={values.name}
 							type="text"
 							placeholder="Masukkan Nama Program Studi"
 							onChange={(e) =>
 								setValues({
 									...values,
-									nama: e.target.value,
+									name: e.target.value,
 								})
 							}
 						/>
@@ -76,13 +76,13 @@ export default function CreateProdi() {
 					<Form.Group className="mb-3" controlId="kaprodi">
 						<Form.Label>Nama Ketua Program Studi</Form.Label>
 						<Form.Control
-							value={values.kaprodi}
+							value={values.head}
 							type="text"
 							placeholder="Masukkan Nama Ketua Program Studi"
 							onChange={(e) =>
 								setValues({
 									...values,
-									kaprodi: e.target.value,
+									head: e.target.value,
 								})
 							}
 						/>
@@ -90,12 +90,12 @@ export default function CreateProdi() {
 					<Form.Group controlId="jurusan">
 						<Form.Label>Jurusan</Form.Label>
 						<Form.Control
-							value={values.jurusan}
+							value={values.major_uuid}
 							as="select"
 							onChange={(e) =>
 								setValues({
 									...values,
-									jurusan: e.target.value,
+									major_uuid: e.target.value,
 								})
 							}
 						>
@@ -104,8 +104,8 @@ export default function CreateProdi() {
 							</option>
 							{jurusan &&
 								jurusan.map((item, idx) => (
-									<option value={item.id} key={idx}>
-										{item.nama}
+									<option value={item.uuid} key={idx}>
+										{item.name}
 									</option>
 								))}
 						</Form.Control>

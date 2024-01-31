@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { fetchData } from "../../../services/api";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
-export default function Response() {
+export default function Jurusan() {
 	const { isLoading } = useLoading();
 	const [values, setValues] = useState(null);
 	const navigate = useNavigate();
@@ -26,7 +26,7 @@ export default function Response() {
 
 	return (
 		<>
-			<DashboardLayout header={"Isi Instrumen Monev"}>
+			<DashboardLayout header={"Jurusan"}>
 				{/* <CreateAssessmentQuestion/> */}
 				<Row>
 					<Col sm={6}>

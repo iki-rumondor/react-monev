@@ -19,8 +19,8 @@ export default function LoginForm() {
 	const postHandler = async () => {
 		try {
 			setIsLoading(true);
-			const res = await postData("login", "POST", values);
-			localStorage.setItem("token", res.token);
+			const res = await postData("signin", "POST", values);
+			sessionStorage.setItem("token", res.token);
 			navigate(redirectPath, { replace: true });
 		} catch (error) {
 			toast.error(error.message);

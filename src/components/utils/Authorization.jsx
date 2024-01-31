@@ -22,7 +22,7 @@ export const IsProdi = () => {
 	const location = useLocation();
 
 	const role = getUserRole();
-	if (role != "PRODI") {
+	if (role != "DEPARTMENT") {
 		return (
 			<Navigate
 				to={"/"}

@@ -4,29 +4,36 @@ import { fetchData, postData } from "../../../services/api";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 
-export default function DeleteProdi({uuid}) {
-	const {setIsLoading} = useLoading();
+export const DeleteMajor = ({ uuid }) => {
+	const { setIsLoading } = useLoading();
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	console.log(uuid);
 	const postHandler = async () => {
-		handleClose()
+		handleClose();
 		try {
-			setIsLoading(true)
-			const res = await postData("departments/" + uuid, "DELETE");
-			toast.success(res.message)
+			setIsLoading(true);
+			const res = await postData("majors" + uuid, "DELETE");
+			toast.success(res.message);
 		} catch (error) {
 			toast.error(error.message);
-		}finally{
-			setIsLoading(false)
+		} finally {
+			setIsLoading(false);
 		}
-	}
+	};
 
 	return (
 		<>
-			<Dropdown.Item className="text-danger" href="#" onClick={handleShow}>Hapus</Dropdown.Item>
+			<Dropdown.Item
+				className="text-danger"
+				href="#"
+				onClick={handleShow}
+			>
+				Hapus
+			</Dropdown.Item>
 
 			<Modal
 				show={show}
@@ -35,11 +42,9 @@ export default function DeleteProdi({uuid}) {
 				keyboard={false}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Hapus Program Studi</Modal.Title>
+					<Modal.Title>Hapus Jurusan</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
-					Tekan Hapus Untuk Melanjutkan
-				</Modal.Body>
+				<Modal.Body>Tekan Hapus Untuk Melanjutkan</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
 						Close

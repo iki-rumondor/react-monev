@@ -4,18 +4,18 @@ import useLoading from "../../hooks/useLoading";
 import { Dropdown, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { fetchData } from "../../../services/api";
-import { CreateAssessmentQuestion } from "./Create";
-import { EditAssessmentQuestion } from "./Edit";
-import { DeleteAssessmentQuestion } from "./Delete";
+import { CreateMajor } from "./Create";
+import { EditMajor } from "./Edit";
+import { DeleteMajor } from "./Delete";
 
-export default function AssessmentQuestion() {
+export default function Major() {
 	const { isLoading } = useLoading();
 	const [values, setValues] = useState(null);
 
 	const loadHandler = async () => {
 		try {
-			const res = await fetchData("assessments/question");
-			setValues(res.data.rows);
+			const res = await fetchData("majors");
+			setValues(res.data);
 		} catch (error) {
 			toast.error(error.message);
 		}
@@ -25,18 +25,15 @@ export default function AssessmentQuestion() {
 		loadHandler();
 	}, [isLoading]);
 
-
-
 	return (
 		<>
-			<DashboardLayout header={"Pertanyaan"}>
-				<CreateAssessmentQuestion/>
+			<DashboardLayout header={"Jurusan"}>
+				<CreateMajor />
 				<Table>
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>Tipe</th>
-							<th>Pertanyaan</th>
+							<th>Nama Jurusan</th>
 							<th>Aksi</th>
 						</tr>
 					</thead>
@@ -45,8 +42,7 @@ export default function AssessmentQuestion() {
 							values.map((item, idx) => (
 								<tr key={idx}>
 									<td>{idx + 1}</td>
-									<td>{item.type.type}</td>
-									<td>{item.question}</td>
+									<td>{item.name}</td>
 									<td>
 										<Dropdown>
 											<Dropdown.Toggle
@@ -58,10 +54,10 @@ export default function AssessmentQuestion() {
 											</Dropdown.Toggle>
 
 											<Dropdown.Menu>
-												<EditAssessmentQuestion
+												<EditMajor
 													uuid={item.uuid}
 												/>
-												<DeleteAssessmentQuestion
+												<DeleteMajor
 													uuid={item.uuid}
 												/>
 											</Dropdown.Menu>

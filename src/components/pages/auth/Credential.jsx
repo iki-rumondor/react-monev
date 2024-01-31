@@ -25,7 +25,7 @@ export default function Credential() {
 		try {
 			setIsLoading(true);
 			const res = await postData("credential", "POST", values);
-			localStorage.setItem("token", res.token);
+			sessionStorage.setItem("token", res.token);
 			navigate(redirectPath, { replace: true });
 		} catch (error) {
 			toast.error(error.message);

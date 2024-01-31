@@ -14,7 +14,7 @@ export default function ProdiTable() {
 	useEffect(() => {
 		const fetchUserData = async () => {
 			try {
-				const res = await fetchData("prodi");
+				const res = await fetchData("departments");
 				setProdi(res.data);
 			} catch (error) {
 				toast.error(error.message);
@@ -33,7 +33,7 @@ export default function ProdiTable() {
 						<DefaultTable.Th>Nama</DefaultTable.Th>
 						<DefaultTable.Th>Kepala Program Studi</DefaultTable.Th>
 						<DefaultTable.Th>Jurusan</DefaultTable.Th>
-						<DefaultTable.Th>Credential</DefaultTable.Th>
+						<DefaultTable.Th>Username</DefaultTable.Th>
 						<DefaultTable.Th>Aksi</DefaultTable.Th>
 					</DefaultTable.Tr>
 				</DefaultTable.Thead>
@@ -42,15 +42,15 @@ export default function ProdiTable() {
 						prodi.map((item, idx) => (
 							<DefaultTable.Tr key={idx}>
 								<DefaultTable.Td>{idx + 1}</DefaultTable.Td>
-								<DefaultTable.Td>{item.nama}</DefaultTable.Td>
+								<DefaultTable.Td>{item.name}</DefaultTable.Td>
 								<DefaultTable.Td>
-									{item.kaprodi}
+									{item.head}
 								</DefaultTable.Td>
 								<DefaultTable.Td>
-									{item.jurusan.nama}
+									{item.major.name}
 								</DefaultTable.Td>
 								<DefaultTable.Td>
-									{item.credential}
+									{item.user.username}
 								</DefaultTable.Td>
 								<DefaultTable.Td>
 									<Dropdown>

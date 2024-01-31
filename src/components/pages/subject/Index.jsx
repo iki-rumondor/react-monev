@@ -12,11 +12,10 @@ import DeleteSubject from "./Delete";
 export default function Subject() {
 	const { isLoading } = useLoading();
 	const [values, setValues] = useState(null);
-	const uuid = getUserUuid()
 
 	const loadHandler = async () => {
 		try {
-			const res = await fetchData("subjects/prodi/" + uuid);
+			const res = await fetchData("subjects");
 			setValues(res.data);
 		} catch (error) {
 			toast.error(error.message);

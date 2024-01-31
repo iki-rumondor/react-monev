@@ -12,7 +12,7 @@ export default function DashboardLayout({ header, children }) {
 		<>
 			<Navbar />
 			<Sidebar title={"i-Monev"} subtitle={"iM"}>
-				{role == "PRODI" ? <ProdiLinks /> : <AdminLinks />}
+				{role == "DEPARTMENT" ? <ProdiLinks /> : <AdminLinks />}
 			</Sidebar>
 			<div className="main-content">
 				<section className="section">

@@ -15,8 +15,8 @@ export default function Login() {
 		<div>
 			<section className="section">
 				<div className="d-flex flex-wrap align-items-stretch">
-					<div className="d-flex align-items-center col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
-						<div className="p-4 m-3">
+					<div className="d-flex align-items-center col-lg-4 col-12 order-lg-1 min-vh-100 order-2 bg-white">
+						<div className="p-4 m-auto">
 							<h2 className="text-dark">Login i-Monev</h2>
 							<p className="text-muted">
 								Silahkan masukkan username dan password untuk
