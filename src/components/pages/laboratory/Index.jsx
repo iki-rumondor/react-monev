@@ -4,18 +4,17 @@ import useLoading from "../../hooks/useLoading";
 import { Card, CardBody, Dropdown, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { fetchData } from "../../../services/api";
-import { getUserUuid } from "../../../services/utils";
-import CreateSubject from "./Create";
-import EditSubject from "./Edit";
-import DeleteSubject from "./Delete";
+import Create from "./Create";
+import Delete from "./Delete";
+import Edit from "./Edit";
 
-export default function Subject() {
+export default function Laboratory() {
 	const { isLoading } = useLoading();
 	const [values, setValues] = useState(null);
 
 	const loadHandler = async () => {
 		try {
-			const res = await fetchData("subjects");
+			const res = await fetchData("laboratories");
 			setValues(res.data);
 		} catch (error) {
 			toast.error(error.message);
@@ -28,16 +27,15 @@ export default function Subject() {
 
 	return (
 		<>
-			<DashboardLayout header={"Mata Kuliah"}>
-				<CreateSubject />
+			<DashboardLayout header={"Laboratorium"}>
+				<Create />
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>Kode</th>
-									<th>Mata Kuliah</th>
+									<th>Nama</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -46,7 +44,6 @@ export default function Subject() {
 									values.map((item, idx) => (
 										<tr key={idx}>
 											<td>{idx + 1}</td>
-											<td>{item.code}</td>
 											<td>{item.name}</td>
 											<td>
 												<Dropdown>
@@ -59,10 +56,10 @@ export default function Subject() {
 													</Dropdown.Toggle>
 
 													<Dropdown.Menu>
-														<EditSubject
+														<Edit
 															uuid={item.uuid}
 														/>
-														<DeleteSubject
+														<Delete
 															uuid={item.uuid}
 														/>
 													</Dropdown.Menu>
