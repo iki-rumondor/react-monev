@@ -16,7 +16,10 @@ export const ProdiLinks = () => {
 			</Sidebar.Link>
 			<Sidebar.HeaderLink>Monev</Sidebar.HeaderLink>
 			<Sidebar.Link path={"/rps"} icon={"fa-user"}>
-				Ketersediaan RPS
+				RPS
+			</Sidebar.Link>
+			<Sidebar.Link path={"/tools"} icon={"fa-user"}>
+				Alat Praktikum
 			</Sidebar.Link>
 		</>
 	);

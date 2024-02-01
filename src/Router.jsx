@@ -13,6 +13,8 @@ import AcademicYear from "./components/pages/academic_year/Index";
 import Teacher from "./components/pages/teacher/Index";
 import RPS from "./components/pages/rps/Index";
 import { SubRPS } from "./components/pages/rps/SubIndex";
+import Tools from "./components/pages/tools/Index";
+import { SubTools } from "./components/pages/tools/SubIndex";
 
 export const Router = () => {
 	return (
@@ -30,6 +32,8 @@ export const Router = () => {
 						<Route path="/teachers" element={<Teacher />} />
 						<Route path="/rps" element={<RPS />} />
 						<Route path="/rps/year/:yearID" element={<SubRPS />} />
+						<Route path="/tools" element={<Tools />} />
+						<Route path="/tools/year/:yearID" element={<SubTools />} />
 					</Route>
 					<Route path="/logout" element={<Logout />} />
 				</Route>

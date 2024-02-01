@@ -5,11 +5,10 @@ import { Card, CardBody, CardHeader, Row, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { fetchData } from "../../../services/api";
 import { Actions } from "./modules/Actions";
-import { RPSCard } from "./modules/Card";
 import { useParams } from "react-router-dom";
 import { sprintf } from "sprintf-js";
 
-export const SubRPS = () => {
+export const SubTools = () => {
 	const { isLoading } = useLoading();
 	const [values, setValues] = useState(null);
 	const [year, setYear] = useState(null);
@@ -17,7 +16,7 @@ export const SubRPS = () => {
 
 	const loadHandler = async () => {
 		try {
-			const res = await fetchData("subjects");
+			const res = await fetchData("subjects/practical");
 			const year = await fetchData("academic-years/" + yearID);
 			setValues(res.data);
 			setYear(year.data);
@@ -33,7 +32,7 @@ export const SubRPS = () => {
 	return (
 		<>
 			<DashboardLayout
-				header={sprintf("RPS Tahun Ajaran : %s", year?.name)}
+				header={sprintf("Alat Praktikum Tahun Ajaran : %s", year?.name)}
 			>
 				<Card>
 					<CardBody>
@@ -41,8 +40,7 @@ export const SubRPS = () => {
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>Kode</th>
-									<th>Mata Kuliah</th>
+									<th>Mata Kuliah Praktikum</th>
 									<th>Status</th>
 									<th>Aksi</th>
 								</tr>
@@ -52,9 +50,8 @@ export const SubRPS = () => {
 									values.map((item, idx) => (
 										<tr key={idx}>
 											<td>{idx + 1}</td>
-											<td>{item.code}</td>
 											<td>{item.name}</td>
-											{item?.academic_plan?.academic_year
+											{item?.practical_tool?.academic_year
 												?.uuid == yearID ? (
 												<>
 													<td>

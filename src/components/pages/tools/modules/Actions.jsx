@@ -19,9 +19,9 @@ export const Actions = ({ item, status, academic_year_uuid }) => {
 				{status ? (
 					<>
 						<Edit
-							uuid={item.academic_plan.uuid}
+							uuid={item.practical_tool.uuid}
 						/>
-						<Detail uuid={item.academic_plan.uuid} />
+						<Detail uuid={item.practical_tool.uuid} />
 					</>
 				) : (
 					<Create
