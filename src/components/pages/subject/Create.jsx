@@ -10,6 +10,7 @@ export default function CreateSubject() {
 	const [values, setValues] = useState({
 		name: "",
 		code: "",
+		practical: false,
 	});
 
 	const handleClose = () => setShow(false);
@@ -71,6 +72,22 @@ export default function CreateSubject() {
 								})
 							}
 						/>
+					</Form.Group>
+					<Form.Group controlId="jenis" className="mb-3">
+						<Form.Label>Jenis Mata Kuliah</Form.Label>
+						<Form.Control
+							as="select"
+							value={values.practical}
+							onChange={(e) =>
+								setValues({
+									...values,
+									practical: e.target.value === "true",
+								})
+							}
+						>
+							<option value="true">Praktikum</option>
+							<option value="false">Umum</option>
+						</Form.Control>
 					</Form.Group>
 				</Modal.Body>
 				<Modal.Footer>

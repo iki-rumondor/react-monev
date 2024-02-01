@@ -10,6 +10,7 @@ export default function EditSubject({ uuid }) {
 	const [values, setValues] = useState({
 		code: "",
 		name: "",
+		practical: false,
 	});
 
 	const handleClose = () => setShow(false);
@@ -24,6 +25,7 @@ export default function EditSubject({ uuid }) {
 			setValues({
 				code: res.data.code,
 				name: res.data.name,
+				practical: res.data.practical,
 			});
 		} catch (error) {
 			toast.error(error.message);
@@ -90,6 +92,22 @@ export default function EditSubject({ uuid }) {
 								})
 							}
 						/>
+					</Form.Group>
+					<Form.Group controlId="jenis" className="mb-3">
+						<Form.Label>Jenis Mata Kuliah</Form.Label>
+						<Form.Control
+							as="select"
+							value={values.practical}
+							onChange={(e) =>
+								setValues({
+									...values,
+									practical: e.target.value === "true",
+								})
+							}
+						>
+							<option value="true">Praktikum</option>
+							<option value="false">Umum</option>
+						</Form.Control>
 					</Form.Group>
 				</Modal.Body>
 				<Modal.Footer>

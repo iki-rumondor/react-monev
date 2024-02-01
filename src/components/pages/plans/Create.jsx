@@ -1,40 +1,27 @@
 import React, { useState } from "react";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
-import { fetchData, postData } from "../../../services/api";
+import { postData } from "../../../services/api";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 
-export default function Edit({ uuid }) {
+export default function Create({subject_uuid, academic_year_uuid}) {
 	const { setIsLoading } = useLoading();
 	const [show, setShow] = useState(false);
 	const [values, setValues] = useState({
 		available: false,
 		note: "",
+		subject_uuid: subject_uuid,
+		academic_year_uuid: academic_year_uuid,
 	});
 
 	const handleClose = () => setShow(false);
-	const handleShow = () => {
-		setShow(true);
-		loadHandler();
-	};
-
-	const loadHandler = async () => {
-		try {
-			const res = await fetchData("academic-plans/" + uuid);
-			setValues({
-				available: res.data.available,
-				note: res.data.note,
-			});
-		} catch (error) {
-			toast.error(error.message);
-		}
-	};
+	const handleShow = () => setShow(true);
 
 	const postHandler = async () => {
 		handleClose();
 		try {
 			setIsLoading(true);
-			const res = await postData("academic-plans/" + uuid, "PUT", values);
+			const res = await postData("academic-plans", "POST", values);
 			toast.success(res.message);
 		} catch (error) {
 			toast.error(error.message);
@@ -46,11 +33,10 @@ export default function Edit({ uuid }) {
 	return (
 		<>
 			<Dropdown.Item
-				className="text-warning"
 				href="#"
 				onClick={handleShow}
 			>
-				Edit
+				Lengkapi Data
 			</Dropdown.Item>
 
 			<Modal
@@ -60,7 +46,7 @@ export default function Edit({ uuid }) {
 				keyboard={false}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Edit RPS</Modal.Title>
+					<Modal.Title>Lengkapi Data</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form.Group controlId="ketersediaan" className="mb-3">
@@ -100,7 +86,7 @@ export default function Edit({ uuid }) {
 						Close
 					</Button>
 					<Button variant="primary" onClick={postHandler}>
-						Ubah
+						Tambah
 					</Button>
 				</Modal.Footer>
 			</Modal>

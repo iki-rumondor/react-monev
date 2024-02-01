@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import { fetchData, postData } from "../../../services/api";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 
-export default function EditAssessmentType({ uuid }) {
+export default function Edit({uuid}) {
 	const { setIsLoading } = useLoading();
 	const [show, setShow] = useState(false);
 	const [values, setValues] = useState({
-		type: "",
+		available: false,
+		note: "",
 	});
 
 	const handleClose = () => setShow(false);
@@ -19,9 +20,10 @@ export default function EditAssessmentType({ uuid }) {
 
 	const loadHandler = async () => {
 		try {
-			const res = await fetchData("assessments/type/" + uuid);
+			const res = await fetchData("academic-plans/" + uuid);
 			setValues({
-				type: res.data.type,
+				available: res.data.available,
+				note: res.data.note,
 			});
 		} catch (error) {
 			toast.error(error.message);
@@ -32,11 +34,7 @@ export default function EditAssessmentType({ uuid }) {
 		handleClose();
 		try {
 			setIsLoading(true);
-			const res = await postData(
-				"assessments/type/" + uuid,
-				"PUT",
-				values
-			);
+			const res = await postData("academic-plans/" + uuid, "PUT", values);
 			toast.success(res.message);
 		} catch (error) {
 			toast.error(error.message);
@@ -48,7 +46,6 @@ export default function EditAssessmentType({ uuid }) {
 	return (
 		<>
 			<Dropdown.Item
-				className="text-warning"
 				href="#"
 				onClick={handleShow}
 			>
@@ -62,19 +59,36 @@ export default function EditAssessmentType({ uuid }) {
 				keyboard={false}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Edit Tipe Penilaian</Modal.Title>
+					<Modal.Title>Edit RPS</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form.Group className="mb-3" controlId="name">
-						<Form.Label>Tipe</Form.Label>
+				<Form.Group controlId="ketersediaan" className="mb-3">
+						<Form.Label>Ketersediaan</Form.Label>
 						<Form.Control
-							value={values.type}
-							type="text"
-							placeholder="Masukkan Tipe Penilaian"
+							as="select"
+							value={values.available}
 							onChange={(e) =>
 								setValues({
 									...values,
-									type: e.target.value,
+									available: e.target.value === "true",
+								})
+							}
+						>
+							<option value="true">Tersedia</option>
+							<option value="false">Tidak Tersedia</option>
+						</Form.Control>
+					</Form.Group>
+
+					<Form.Group controlId="note" className="mb-3">
+						<Form.Label>Keterangan</Form.Label>
+						<Form.Control
+							as="textarea"
+							rows={"3"}
+							value={values.note}
+							onChange={(e) =>
+								setValues({
+									...values,
+									note: e.target.value,
 								})
 							}
 						/>

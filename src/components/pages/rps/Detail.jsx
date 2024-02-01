@@ -9,7 +9,6 @@ export default function Detail({ uuid }) {
 	const [show, setShow] = useState(false);
 	const [value, setValues] = useState(false);
 
-
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
@@ -23,15 +22,12 @@ export default function Detail({ uuid }) {
 	};
 
 	useEffect(() => {
-		loadHandler()
-	}, [])
+		loadHandler();
+	}, []);
 
 	return (
 		<>
-			<Dropdown.Item
-				href="#"
-				onClick={handleShow}
-			>
+			<Dropdown.Item className="text-info" href="#" onClick={handleShow}>
 				Detail
 			</Dropdown.Item>
 
@@ -45,9 +41,15 @@ export default function Detail({ uuid }) {
 					<Modal.Title>Detail RPS</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<ListKeyValue keys={"Mata Kuliah"} value={value.subject?.name}/>
-					<ListKeyValue keys={"Tersedia"} value={value.available ? "Ya" : "Tidak"}/>
-					<ListKeyValue keys={"Keterangan"} value={value.note}/>
+					<ListKeyValue
+						keys={"Mata Kuliah"}
+						value={value.subject?.name}
+					/>
+					<ListKeyValue
+						keys={"Tersedia"}
+						value={value.available ? "Ya" : "Tidak"}
+					/>
+					<ListKeyValue keys={"Keterangan"} value={value.note} />
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>

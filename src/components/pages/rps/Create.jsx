@@ -33,6 +33,7 @@ export default function Create({subject_uuid, academic_year_uuid}) {
 	return (
 		<>
 			<Dropdown.Item
+			className="text-primary"
 				href="#"
 				onClick={handleShow}
 			>

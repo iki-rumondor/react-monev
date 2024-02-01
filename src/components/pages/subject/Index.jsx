@@ -38,6 +38,7 @@ export default function Subject() {
 									<th>No</th>
 									<th>Kode</th>
 									<th>Mata Kuliah</th>
+									<th>Jenis</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -48,6 +49,17 @@ export default function Subject() {
 											<td>{idx + 1}</td>
 											<td>{item.code}</td>
 											<td>{item.name}</td>
+											<td>
+												{item.practical ? (
+													<span className="badge badge-success">
+														Praktikum
+													</span>
+												) : (
+													<span className="badge badge-info">
+														Umum
+													</span>
+												)}
+											</td>
 											<td>
 												<Dropdown>
 													<Dropdown.Toggle
