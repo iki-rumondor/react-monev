@@ -15,6 +15,11 @@ import RPS from "./components/pages/rps/Index";
 import { SubRPS } from "./components/pages/rps/SubIndex";
 import Tools from "./components/pages/tools/Index";
 import { SubTools } from "./components/pages/tools/SubIndex";
+import Modul from "./components/pages/modul/Index";
+import { SubModul } from "./components/pages/modul/SubIndex";
+import { HomeController } from "./components/pages/dashboard/Index";
+import { AdminDashboard } from "./components/pages/dashboard/Admin";
+import { ProdiDashboard } from "./components/pages/dashboard/Prodi";
 
 export const Router = () => {
 	return (
@@ -24,7 +29,10 @@ export const Router = () => {
 					<Route element={<IsAdmin />}>
 						<Route path="/prodi" element={<Prodi />} />
 						<Route path="/majors" element={<Major />} />
-						<Route path="/academic-years" element={<AcademicYear />} />
+						<Route
+							path="/academic-years"
+							element={<AcademicYear />}
+						/>
 					</Route>
 					<Route element={<IsProdi />}>
 						<Route path="/subjects" element={<Subject />} />
@@ -33,8 +41,17 @@ export const Router = () => {
 						<Route path="/rps" element={<RPS />} />
 						<Route path="/rps/year/:yearID" element={<SubRPS />} />
 						<Route path="/tools" element={<Tools />} />
-						<Route path="/tools/year/:yearID" element={<SubTools />} />
+						<Route
+							path="/tools/year/:yearID"
+							element={<SubTools />}
+						/>
+						<Route path="/modules" element={<Modul />} />
+						<Route
+							path="/modules/year/:yearID"
+							element={<SubModul />}
+						/>
 					</Route>
+					<Route path="/" element={<HomeController />}></Route>
 					<Route path="/logout" element={<Logout />} />
 				</Route>
 				<Route element={<RequireLogout />}>
