@@ -23,7 +23,6 @@ export default function Create({ subject_uuid, academic_year_uuid }) {
 		handleClose();
 		try {
 			setIsLoading(true);
-			console.log(labs);
 			const res = await postData("practical-modules", "POST", values);
 			toast.success(res.message);
 		} catch (error) {

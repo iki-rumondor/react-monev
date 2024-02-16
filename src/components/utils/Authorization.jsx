@@ -9,7 +9,7 @@ export const IsAdmin = () => {
 	if (role != "ADMIN") {
 		return (
 			<Navigate
-				to={"/"}
+				to={"/home"}
 				state={{ path: location.pathname, error: "Forbidden Page" }}
 			/>
 		);
@@ -25,7 +25,7 @@ export const IsProdi = () => {
 	if (role != "DEPARTMENT") {
 		return (
 			<Navigate
-				to={"/"}
+				to={"/home"}
 				state={{ path: location.pathname, error: "Forbidden Page" }}
 			/>
 		);

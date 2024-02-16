@@ -8,7 +8,7 @@ export const RequireLogout = () => {
 	if (token != null) {
 		return (
 			<Navigate
-				to={"/"}
+				to={"/home"}
 				state={{ path: location.pathname, error: "Silahkan Logout Terlebih Dahulu" }}
 			/>
 		);

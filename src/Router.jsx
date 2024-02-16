@@ -18,8 +18,12 @@ import { SubTools } from "./components/pages/tools/SubIndex";
 import Modul from "./components/pages/modul/Index";
 import { SubModul } from "./components/pages/modul/SubIndex";
 import { HomeController } from "./components/pages/dashboard/Index";
-import { AdminDashboard } from "./components/pages/dashboard/Admin";
-import { ProdiDashboard } from "./components/pages/dashboard/Prodi";
+import Skill from "./components/pages/skill/Index";
+import Fasility from "./components/pages/fasilitas/Index";
+import FacilityCondition from "./components/pages/facility_condition/Index";
+import { SubFacilityCondition } from "./components/pages/facility_condition/SubIndex";
+import FirstMonev from "./components/pages/monev/first/Index";
+import { SubFirstMonev } from "./components/pages/monev/first/SubIndex";
 
 export const Router = () => {
 	return (
@@ -37,21 +41,27 @@ export const Router = () => {
 					<Route element={<IsProdi />}>
 						<Route path="/subjects" element={<Subject />} />
 						<Route path="/lab" element={<Laboratory />} />
+						<Route path="/fasilitas" element={<Fasility />} />
 						<Route path="/teachers" element={<Teacher />} />
+						<Route path="/first-monev" element={<FirstMonev />} />
+						<Route path="/first-monev/years/:yearID" element={<SubFirstMonev />} />
 						<Route path="/rps" element={<RPS />} />
-						<Route path="/rps/year/:yearID" element={<SubRPS />} />
+						<Route path="/rps/years/:yearID" element={<SubRPS />} />
 						<Route path="/tools" element={<Tools />} />
+						<Route path="/skills" element={<Skill />} />
+						<Route path="/facility-conditions" element={<FacilityCondition />} />
+						<Route path="/facility-conditions/years/:yearID" element={<SubFacilityCondition />} />
 						<Route
-							path="/tools/year/:yearID"
+							path="/tools/years/:yearID"
 							element={<SubTools />}
 						/>
 						<Route path="/modules" element={<Modul />} />
 						<Route
-							path="/modules/year/:yearID"
+							path="/modules/years/:yearID"
 							element={<SubModul />}
 						/>
 					</Route>
-					<Route path="/" element={<HomeController />}></Route>
+					<Route path="/home" element={<HomeController />}></Route>
 					<Route path="/logout" element={<Logout />} />
 				</Route>
 				<Route element={<RequireLogout />}>

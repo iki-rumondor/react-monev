@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
-import { fetchData, postData } from "../../../services/api";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
+import { fetchAPI, postAPI } from "../../utils/Fetching";
 
-export default function EditSubject({ uuid }) {
-	const { setIsLoading } = useLoading();
+export default function Edit({ uuid }) {
+	const { setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 	const [values, setValues] = useState({
-		code: "",
 		name: "",
 	});
 
@@ -20,24 +19,25 @@ export default function EditSubject({ uuid }) {
 
 	const loadHandler = async () => {
 		try {
-			const res = await fetchData("subjects/" + uuid);
+			const res = await fetchAPI("/api/facilities/" + uuid);
 			setValues({
-				code: res.data.code,
 				name: res.data.name,
 			});
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
 		}
 	};
 
 	const postHandler = async () => {
 		handleClose();
 		try {
+			setIsSuccess(false);
 			setIsLoading(true);
-			const res = await postData("subjects/" + uuid, "PUT", values);
+			const res = await postAPI("/api/facilities/" + uuid, "PUT", values);
 			toast.success(res.message);
+			setIsSuccess(true);
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -60,29 +60,15 @@ export default function EditSubject({ uuid }) {
 				keyboard={false}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Edit Mata Kuliah</Modal.Title>
+					<Modal.Title>Edit Fasilitas</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form.Group className="mb-3" controlId="code">
-						<Form.Label>Kode</Form.Label>
-						<Form.Control
-							value={values.code}
-							type="text"
-							placeholder="Masukkan Kode Mata Kuliah"
-							onChange={(e) =>
-								setValues({
-									...values,
-									code: e.target.value,
-								})
-							}
-						/>
-					</Form.Group>
 					<Form.Group className="mb-3" controlId="name">
 						<Form.Label>Nama</Form.Label>
 						<Form.Control
 							value={values.name}
 							type="text"
-							placeholder="Masukkan Nama Mata Kuliah"
+							placeholder="Masukkan Nama Fasilitas"
 							onChange={(e) =>
 								setValues({
 									...values,
