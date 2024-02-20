@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Card, CardBody, Dropdown, Table } from "react-bootstrap";
-import Create from "./Create";
+import { Alert, Card, CardBody, Dropdown, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import useLoading from "../../../../hooks/useLoading";
 import DashboardLayout from "../../../DashboardLayout";
 import { fetchAPI } from "../../../../utils/Fetching";
-import {DeleteModal} from "../../../../layout/modals/DeleteModal";
+import Update from "./Update";
 
-export default function MiddleTeacherAttendences() {
+export default function StudentPassed() {
 	const { setIsLoading, isSuccess } = useLoading();
 	const [values, setValues] = useState(null);
 	const { yearID } = useParams();
@@ -18,7 +17,7 @@ export default function MiddleTeacherAttendences() {
 		try {
 			setIsLoading(true);
 			const res = await fetchAPI(
-				`/api/middle-monev/teacher-attendences/years/${yearID}`
+				`/api/middle-monev/student-attendences/years/${yearID}`
 			);
 			setValues(res.data);
 			const y_res = await fetchAPI("/api/academic-years/" + yearID);
@@ -37,9 +36,8 @@ export default function MiddleTeacherAttendences() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Presentase Kehadiran Dosen: ${year?.name}`}
+				header={`Persentase Kelulusan Mahasiswa Per Mata Kuliah: ${year?.name}`}
 			>
-				<Create yearUuid={yearID} />
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -47,8 +45,8 @@ export default function MiddleTeacherAttendences() {
 								<tr>
 									<th>No</th>
 									<th>Mata Kuliah</th>
-									<th>Penanggung Jawab</th>
-									<th>Persentase Kehadiran</th>
+									<th>Jumlah Mahasiswa</th>
+									<th>Persentase Kelulusan</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -58,12 +56,10 @@ export default function MiddleTeacherAttendences() {
 										<tr key={idx}>
 											<td>{idx + 1}</td>
 											<td>{item.subject.name}</td>
-											<td>{item.teacher.name}</td>
-											<td>{item.middle}%</td>
+											<td>{item.student_amount}</td>
+											<td>{Math.round(item.passed_amount/item.student_amount*100)}%</td>
 											<td>
-												<DeleteModal
-													endpoint={`/api/middle-monev/teacher-attendences/${item.uuid}`}
-												/>
+												<Update uuid={item.uuid} student_amount={item.student_amount}/>
 											</td>
 										</tr>
 									))}

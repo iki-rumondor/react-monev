@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
+import DashboardLayout from "../../DashboardLayout";
+import useLoading from "../../../hooks/useLoading";
+import { Button, Card, CardBody, Dropdown, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { Card, CardBody, Dropdown, Table } from "react-bootstrap";
-import Create from "./Create";
 import { useParams } from "react-router-dom";
-import useLoading from "../../../../hooks/useLoading";
-import DashboardLayout from "../../../DashboardLayout";
-import { fetchAPI } from "../../../../utils/Fetching";
-import {DeleteModal} from "../../../../layout/modals/DeleteModal";
+import { fetchAPI } from "../../../utils/Fetching";
 
-export default function MiddleTeacherAttendences() {
+export const SubLastMonev = () => {
 	const { setIsLoading, isSuccess } = useLoading();
-	const [values, setValues] = useState(null);
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
+	const [values, setValues] = useState(null);
+	const links = [
+		`/last-monev/student-passed/years/${yearID}`,
+		`/last-monev/student-final/years/${yearID}`,
+		`/last-monev/grade/years/${yearID}`,
+	];
 
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI(
-				`/api/middle-monev/teacher-attendences/years/${yearID}`
-			);
+			const res = await fetchAPI("/api/last-monev/years/" + yearID);
 			setValues(res.data);
 			const y_res = await fetchAPI("/api/academic-years/" + yearID);
 			setYear(y_res.data);
@@ -37,18 +38,16 @@ export default function MiddleTeacherAttendences() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Presentase Kehadiran Dosen: ${year?.name}`}
+				header={`Monev Setelah UAS: ${year?.name}`}
 			>
-				<Create yearUuid={yearID} />
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>Mata Kuliah</th>
-									<th>Penanggung Jawab</th>
-									<th>Persentase Kehadiran</th>
+									<th>Instrumen Monev</th>
+									<th>Jumlah Data</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -57,13 +56,10 @@ export default function MiddleTeacherAttendences() {
 									values.map((item, idx) => (
 										<tr key={idx}>
 											<td>{idx + 1}</td>
-											<td>{item.subject.name}</td>
-											<td>{item.teacher.name}</td>
-											<td>{item.middle}%</td>
+											<td>{item.name}</td>
+											<td>{item.amount}</td>
 											<td>
-												<DeleteModal
-													endpoint={`/api/middle-monev/teacher-attendences/${item.uuid}`}
-												/>
+												<Button href={links[idx]}>Lihat</Button>
 											</td>
 										</tr>
 									))}
@@ -74,4 +70,4 @@ export default function MiddleTeacherAttendences() {
 			</DashboardLayout>
 		</>
 	);
-}
+};

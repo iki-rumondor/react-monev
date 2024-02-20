@@ -31,6 +31,9 @@ export const ProdiLinks = () => {
 			<Sidebar.Link path={"/middle-last-monev"} icon={"fa-user"}>
 				Akhir Sebelum UAS
 			</Sidebar.Link>
+			<Sidebar.Link path={"/last-monev"} icon={"fa-user"}>
+				Akhir Setelah UAS
+			</Sidebar.Link>
 		</>
 	);
 };

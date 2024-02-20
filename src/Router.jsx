@@ -33,6 +33,11 @@ import { SubMiddleLastMonev } from "./components/pages/monev/middle_last/SubInde
 import MiddleLastTeacherAttendences from "./components/pages/monev/middle_last/teacher_attendence/Index";
 import MiddleLastStudentAttendences from "./components/pages/monev/middle_last/student_attendence/Index";
 import MiddleLastPlans from "./components/pages/monev/middle_last/plans/Index";
+import LastMonev from "./components/pages/monev/last/Index";
+import { SubLastMonev } from "./components/pages/monev/last/SubIndex";
+import StudentPassed from "./components/pages/monev/last/passed/Index";
+import StudentFinal from "./components/pages/monev/last/final/Index";
+import SubjectGrade from "./components/pages/monev/last/grade/Index";
 
 export const Router = () => {
 	return (
@@ -93,6 +98,26 @@ export const Router = () => {
 						<Route
 							path="/middle-last-monev/plans/years/:yearID"
 							element={<MiddleLastPlans />}
+						/>
+						<Route
+							path="/last-monev"
+							element={<LastMonev />}
+						/>
+						<Route
+							path="/last-monev/years/:yearID"
+							element={<SubLastMonev />}
+						/>
+						<Route
+							path="/last-monev/student-passed/years/:yearID"
+							element={<StudentPassed />}
+						/>
+						<Route
+							path="/last-monev/student-final/years/:yearID"
+							element={<StudentFinal />}
+						/>
+						<Route
+							path="/last-monev/grade/years/:yearID"
+							element={<SubjectGrade />}
 						/>
 						<Route path="/rps/years/:yearID" element={<SubRPS />} />
 						<Route path="/tools" element={<Tools />} />

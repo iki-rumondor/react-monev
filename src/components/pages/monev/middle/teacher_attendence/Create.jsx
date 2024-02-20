@@ -8,13 +8,16 @@ export default function Create({ yearUuid }) {
 	const { setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 	const [subjects, setSubjects] = useState(null);
+	const [teachers, setTeachers] = useState(null);
 	const percentages = ["20", "30", "40", "50"];
-
-	const [values, setValues] = useState({
+	const defaultValue = {
 		middle: "",
+		teacher_uuid: "",
 		subject_uuid: "",
 		academic_year_uuid: yearUuid,
-	});
+	}
+
+	const [values, setValues] = useState(defaultValue);
 
 	const handleChange = (e) => {
 		setValues({ ...values, [e.target.name]: e.target.value });
@@ -32,6 +35,8 @@ export default function Create({ yearUuid }) {
 				`/api/subjects/teacher-attendences/years/${yearUuid}`
 			);
 			setSubjects(s_res.data);
+			const t_res = await fetchAPI(`/api/teachers`);
+			setTeachers(t_res.data);
 		} catch (error) {
 			toast.error(error);
 		} finally {
@@ -51,11 +56,7 @@ export default function Create({ yearUuid }) {
 			);
 			toast.success(res.message);
 			setIsSuccess(true);
-			setValues({
-				...values,
-				middle: "",
-				subject_uuid: "",
-			});
+			setValues(defaultValue);
 		} catch (error) {
 			toast.error(error);
 		} finally {
@@ -97,6 +98,25 @@ export default function Create({ yearUuid }) {
 							</option>
 							{subjects &&
 								subjects.map((item, idx) => (
+									<option key={idx} value={item.uuid}>
+										{item.name}
+									</option>
+								))}
+						</Form.Control>
+					</Form.Group>
+					<Form.Group className="mb-3" controlId="teacher">
+						<Form.Label>Penanggung Jawab Mata Kuliah</Form.Label>
+						<Form.Control
+							as="select"
+							name="teacher_uuid"
+							value={values?.teacher_uuid}
+							onChange={handleChange}
+						>
+							<option value="" disabled>
+								Pilih Penanggung Jawab
+							</option>
+							{teachers &&
+								teachers.map((item, idx) => (
 									<option key={idx} value={item.uuid}>
 										{item.name}
 									</option>
