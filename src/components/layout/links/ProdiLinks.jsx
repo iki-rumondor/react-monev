@@ -25,6 +25,12 @@ export const ProdiLinks = () => {
 			<Sidebar.Link path={"/first-monev"} icon={"fa-user"}>
 				Awal Semester
 			</Sidebar.Link>
+			<Sidebar.Link path={"/middle-monev"} icon={"fa-user"}>
+				Tengah Semester
+			</Sidebar.Link>
+			<Sidebar.Link path={"/middle-last-monev"} icon={"fa-user"}>
+				Akhir Sebelum UAS
+			</Sidebar.Link>
 		</>
 	);
 };

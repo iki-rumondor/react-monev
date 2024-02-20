@@ -45,7 +45,7 @@ export const postAPI = async (endpoint, method, data = null) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data.message : error.message;
+		throw error.response?.data?.message ?? error?.message;
 	}
 };
 
@@ -60,7 +60,7 @@ export const deleteAPI = async (endpoint) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data.message : error.message;
+		throw error.response?.data?.message ?? error?.message;
 	}
 };
 
@@ -75,7 +75,7 @@ export const fetchAPI = async (endpoint) => {
 		});
 		return response.data;
 	} catch (error) {
-		throw error.response ? error.response.data.message : error.message;
+		throw  error.response?.data?.message ?? error?.message;
 	}
 };
 

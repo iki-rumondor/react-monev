@@ -6,23 +6,21 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { fetchAPI } from "../../../utils/Fetching";
 
-export const SubFirstMonev = () => {
+export const SubMiddleMonev = () => {
 	const { setIsLoading, isSuccess } = useLoading();
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
 	const [values, setValues] = useState(null);
 	const links = [
-		`/rps/years/${yearID}`,
-		`/modules/years/${yearID}`,
-		`/tools/years/${yearID}`,
-		`/skills/years/${yearID}`,
-		`/facility-conditions/years/${yearID}`,
+		`/middle-monev/teacher-attendences/years/${yearID}`,
+		`/middle-monev/student-attendences/years/${yearID}`,
+		`/middle-monev/plans/years/${yearID}`,
 	];
 
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI("/api/users/first-monev/years/" + yearID);
+			const res = await fetchAPI("/api/middle-monev/years/" + yearID);
 			setValues(res.data);
 			const y_res = await fetchAPI("/api/academic-years/" + yearID);
 			setYear(y_res.data);
@@ -40,7 +38,7 @@ export const SubFirstMonev = () => {
 	return (
 		<>
 			<DashboardLayout
-				header={`Monev Awal Semester: Tahun Ajaran ${year?.name}`}
+				header={`Monev Tengah Semester: Tahun Ajaran ${year?.name}`}
 			>
 				<Card>
 					<CardBody>

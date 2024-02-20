@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { fetchAPI, postAPI } from "../../utils/Fetching";
-import useLoading from "../../hooks/useLoading";
+import useLoading from "../../../../hooks/useLoading";
+import { fetchAPI, postAPI } from "../../../../utils/Fetching";
 
 export default function Create({ yearUuid }) {
 	const { setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 	const [subjects, setSubjects] = useState(null);
-	const defaultValue = {
-		available: false,
-		note: "",
+	const percentages = ["20", "30", "40", "50"];
+
+	const [values, setValues] = useState({
+		middle: "",
 		subject_uuid: "",
 		academic_year_uuid: yearUuid,
-	};
-
-	const [values, setValues] = useState(defaultValue);
+	});
 
 	const handleChange = (e) => {
 		setValues({ ...values, [e.target.name]: e.target.value });
@@ -30,7 +29,7 @@ export default function Create({ yearUuid }) {
 		try {
 			setIsLoading(true);
 			const s_res = await fetchAPI(
-				`/api/subjects/tables/academic_plans/years/${yearUuid}`
+				`/api/subjects/teacher-attendences/years/${yearUuid}`
 			);
 			setSubjects(s_res.data);
 		} catch (error) {
@@ -45,10 +44,18 @@ export default function Create({ yearUuid }) {
 		try {
 			setIsSuccess(false);
 			setIsLoading(true);
-			const res = await postAPI("/api/academic-plans", "POST", values);
+			const res = await postAPI(
+				"/api/middle-monev/teacher-attendences",
+				"POST",
+				values
+			);
 			toast.success(res.message);
 			setIsSuccess(true);
-			setValues(defaultValue);
+			setValues({
+				...values,
+				middle: "",
+				subject_uuid: "",
+			});
 		} catch (error) {
 			toast.error(error);
 		} finally {
@@ -96,33 +103,23 @@ export default function Create({ yearUuid }) {
 								))}
 						</Form.Control>
 					</Form.Group>
-					<Form.Group controlId="ketersediaan" className="mb-3">
-						<Form.Label>Ketersediaan</Form.Label>
+					<Form.Group className="mb-3" controlId="middle">
+						<Form.Label>Presentasi Kehadiran</Form.Label>
 						<Form.Control
 							as="select"
-							value={values.available}
-							name="available"
-							onChange={(e) =>
-								setValues({
-									...values,
-									available: e.target.value === "true",
-								})
-							}
-						>
-							<option value={"true"}>Tersedia</option>
-							<option value={"false"}>Tidak Tersedia</option>
-						</Form.Control>
-					</Form.Group>
-
-					<Form.Group controlId="note" className="mb-3">
-						<Form.Label>Keterangan</Form.Label>
-						<Form.Control
-							as="textarea"
-							name="note"
-							rows={"3"}
-							value={values.note}
+							name="middle"
+							value={values?.middle}
 							onChange={handleChange}
-						/>
+						>
+							<option value="" disabled>
+								Pilih Presentasi Kehadiran
+							</option>
+							{percentages.map((item, idx) => (
+								<option key={idx} value={item}>
+									{`${item}%`}
+								</option>
+							))}
+						</Form.Control>
 					</Form.Group>
 				</Modal.Body>
 				<Modal.Footer>

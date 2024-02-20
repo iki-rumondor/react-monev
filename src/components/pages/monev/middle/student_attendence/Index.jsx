@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import DashboardLayout from "../DashboardLayout";
-import useLoading from "../../hooks/useLoading";
 import toast from "react-hot-toast";
-import { fetchAPI } from "../../utils/Fetching";
-import { Card, CardBody, Dropdown, Table } from "react-bootstrap";
+import { Alert, Card, CardBody, Dropdown, Table } from "react-bootstrap";
 import Create from "./Create";
-import Edit from "./Edit";
-import Delete from "./Delete";
 import { useParams } from "react-router-dom";
+import useLoading from "../../../../hooks/useLoading";
+import DashboardLayout from "../../../DashboardLayout";
+import { fetchAPI } from "../../../../utils/Fetching";
+import {DeleteModal} from "../../../../layout/modals/DeleteModal";
 
-export default function Skill() {
+export default function MiddleStudentAttendences() {
 	const { setIsLoading, isSuccess } = useLoading();
 	const [values, setValues] = useState(null);
-	const {yearID} = useParams();
+	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
 
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI(`/api/teacher-skills/years/${yearID}`);
+			const res = await fetchAPI(
+				`/api/middle-monev/student-attendences/years/${yearID}`
+			);
 			setValues(res.data);
 			const y_res = await fetchAPI("/api/academic-years/" + yearID);
 			setYear(y_res.data);
@@ -36,18 +37,21 @@ export default function Skill() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Kesesuaian Mata Kuliah Dengan Kemampuan Dosen: ${year?.name}`}
+				header={`Presentase Kehadiran Mahasiswa: ${year?.name}`}
 			>
 				<Create yearUuid={yearID} />
+				<Alert variant="light">
+					Persentase Kehadiran = Persentase Kehadiran Mahasiswa Yang Lebih Dari 75%
+				</Alert>
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>Nama Dosen</th>
 									<th>Mata Kuliah</th>
-									<th>Kemampuan</th>
+									<th>Jumlah Mahasiswa</th>
+									<th>Persentase Kehadiran</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -56,28 +60,13 @@ export default function Skill() {
 									values.map((item, idx) => (
 										<tr key={idx}>
 											<td>{idx + 1}</td>
-											<td>{item.teacher.name}</td>
 											<td>{item.subject.name}</td>
-											<td>{item.skill}</td>
+											<td>{item.student_amount}</td>
+											<td>{Math.round(item.middle/item.student_amount*100)}%</td>
 											<td>
-												<Dropdown>
-													<Dropdown.Toggle
-														className="btn-sm"
-														variant="danger"
-														id="dropdown-basic"
-													>
-														Pilih
-													</Dropdown.Toggle>
-
-													<Dropdown.Menu>
-														<Edit
-															uuid={item.uuid}
-														/>
-														<Delete
-															uuid={item.uuid}
-														/>
-													</Dropdown.Menu>
-												</Dropdown>
+												<DeleteModal
+													endpoint={`/api/middle-monev/student-attendences/${item.uuid}`}
+												/>
 											</td>
 										</tr>
 									))}

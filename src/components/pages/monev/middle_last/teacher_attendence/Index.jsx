@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from "react";
-import DashboardLayout from "../../DashboardLayout";
-import useLoading from "../../../hooks/useLoading";
-import { Button, Card, CardBody, Dropdown, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
+import { Card, CardBody, Dropdown, Table } from "react-bootstrap";
+import Update from "./Update";
 import { useParams } from "react-router-dom";
-import { fetchAPI } from "../../../utils/Fetching";
+import useLoading from "../../../../hooks/useLoading";
+import DashboardLayout from "../../../DashboardLayout";
+import { fetchAPI } from "../../../../utils/Fetching";
+import { DeleteModal } from "../../../../layout/modals/DeleteModal";
 
-export const SubFirstMonev = () => {
+export default function MiddleLastTeacherAttendences() {
 	const { setIsLoading, isSuccess } = useLoading();
+	const [values, setValues] = useState(null);
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
-	const [values, setValues] = useState(null);
-	const links = [
-		`/rps/years/${yearID}`,
-		`/modules/years/${yearID}`,
-		`/tools/years/${yearID}`,
-		`/skills/years/${yearID}`,
-		`/facility-conditions/years/${yearID}`,
-	];
 
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI("/api/users/first-monev/years/" + yearID);
+			const res = await fetchAPI(
+				`/api/middle-monev/teacher-attendences/years/${yearID}`
+			);
 			setValues(res.data);
 			const y_res = await fetchAPI("/api/academic-years/" + yearID);
 			setYear(y_res.data);
@@ -40,7 +37,7 @@ export const SubFirstMonev = () => {
 	return (
 		<>
 			<DashboardLayout
-				header={`Monev Awal Semester: Tahun Ajaran ${year?.name}`}
+				header={`Presentase Kehadiran Dosen: ${year?.name}`}
 			>
 				<Card>
 					<CardBody>
@@ -48,8 +45,11 @@ export const SubFirstMonev = () => {
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>Instrumen Monev</th>
-									<th>Jumlah Data</th>
+									<th>Mata Kuliah</th>
+									<th>
+										Persentase Tengah Semester
+									</th>
+									<th>Persentase Sekarang</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -58,10 +58,11 @@ export const SubFirstMonev = () => {
 									values.map((item, idx) => (
 										<tr key={idx}>
 											<td>{idx + 1}</td>
-											<td>{item.name}</td>
-											<td>{item.amount}</td>
+											<td>{item.subject.name}</td>
+											<td>{item.middle}%</td>
+											<td>{item.last}%</td>
 											<td>
-												<Button href={links[idx]}>Lihat</Button>
+												<Update uuid={item.uuid} />
 											</td>
 										</tr>
 									))}
@@ -72,4 +73,4 @@ export const SubFirstMonev = () => {
 			</DashboardLayout>
 		</>
 	);
-};
+}

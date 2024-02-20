@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { fetchAPI, postAPI } from "../../utils/Fetching";
-import useLoading from "../../hooks/useLoading";
+import useLoading from "../../../../hooks/useLoading";
+import { fetchAPI, postAPI } from "../../../../utils/Fetching";
 
 export default function Create({ yearUuid }) {
 	const { setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 	const [subjects, setSubjects] = useState(null);
-	const defaultValue = {
-		available: false,
-		note: "",
+
+	const [values, setValues] = useState({
+		student_amount: "",
+		middle: "",
 		subject_uuid: "",
 		academic_year_uuid: yearUuid,
-	};
-
-	const [values, setValues] = useState(defaultValue);
+	});
 
 	const handleChange = (e) => {
 		setValues({ ...values, [e.target.name]: e.target.value });
@@ -30,7 +29,7 @@ export default function Create({ yearUuid }) {
 		try {
 			setIsLoading(true);
 			const s_res = await fetchAPI(
-				`/api/subjects/tables/academic_plans/years/${yearUuid}`
+				`/api/subjects/student-attendences/years/${yearUuid}`
 			);
 			setSubjects(s_res.data);
 		} catch (error) {
@@ -45,10 +44,19 @@ export default function Create({ yearUuid }) {
 		try {
 			setIsSuccess(false);
 			setIsLoading(true);
-			const res = await postAPI("/api/academic-plans", "POST", values);
+			const res = await postAPI(
+				"/api/middle-monev/student-attendences",
+				"POST",
+				values
+			);
 			toast.success(res.message);
 			setIsSuccess(true);
-			setValues(defaultValue);
+			setValues({
+				...values,
+				student_amount: "",
+				middle: "",
+				subject_uuid: "",
+			});
 		} catch (error) {
 			toast.error(error);
 		} finally {
@@ -96,31 +104,24 @@ export default function Create({ yearUuid }) {
 								))}
 						</Form.Control>
 					</Form.Group>
-					<Form.Group controlId="ketersediaan" className="mb-3">
-						<Form.Label>Ketersediaan</Form.Label>
+					<Form.Group className="mb-3" controlId="student_amount">
+						<Form.Label>Jumlah Mahasiswa</Form.Label>
 						<Form.Control
-							as="select"
-							value={values.available}
-							name="available"
-							onChange={(e) =>
-								setValues({
-									...values,
-									available: e.target.value === "true",
-								})
-							}
-						>
-							<option value={"true"}>Tersedia</option>
-							<option value={"false"}>Tidak Tersedia</option>
-						</Form.Control>
+							name="student_amount"
+							value={values?.student_amount}
+							type="number"
+							onChange={handleChange}
+						/>
 					</Form.Group>
-
-					<Form.Group controlId="note" className="mb-3">
-						<Form.Label>Keterangan</Form.Label>
+					<Form.Group className="mb-3" controlId="middle">
+						<Form.Label>
+							Jumlah Mahasiswa Dengan Persentase Kehadiran Lebih
+							Dari 75%
+						</Form.Label>
 						<Form.Control
-							as="textarea"
-							name="note"
-							rows={"3"}
-							value={values.note}
+							type="number"
+							name="middle"
+							value={values?.middle}
 							onChange={handleChange}
 						/>
 					</Form.Group>

@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 import { fetchAPI, postAPI } from "../../utils/Fetching";
 
-export default function Create() {
+export default function Create({yearUuid}) {
 	const { setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 	const [subjects, setSubjects] = useState(null);
@@ -15,6 +15,7 @@ export default function Create() {
 		skill: "",
 		teacher_uuid: "",
 		subject_uuid: "",
+		academic_year_uuid: yearUuid,
 	});
 
 	const handleChange = (e) => {
