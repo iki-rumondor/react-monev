@@ -14,6 +14,13 @@ export default function MiddleStudentAttendences() {
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
 
+	const breadcumb = [
+		{
+			name: "Monev Tengah Semester",
+			link: `/middle-monev/years/${yearID}`,
+		},
+	];
+
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
@@ -37,7 +44,9 @@ export default function MiddleStudentAttendences() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Presentase Kehadiran Mahasiswa: ${year?.name}`}
+				header={year?.name}
+				breadcumb={breadcumb}
+				title={"Persentase Kehadiran Mahasiswa"}
 			>
 				<Create yearUuid={yearID} />
 				<Alert variant="light">

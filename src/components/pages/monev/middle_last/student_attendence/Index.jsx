@@ -12,6 +12,12 @@ export default function MiddleLastStudentAttendences() {
 	const [values, setValues] = useState(null);
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
+	const breadcumb = [
+		{
+			name: "Monev Sebelum UAS",
+			link: `/middle-last-monev/years/${yearID}`,
+		},
+	];
 
 	const handleLoad = async () => {
 		try {
@@ -36,7 +42,9 @@ export default function MiddleLastStudentAttendences() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Presentase Kehadiran Mahasiswa: ${year?.name}`}
+				header={year?.name}
+				breadcumb={breadcumb}
+				title={"Persentase Kehadiran Mahasiswa"}
 			>
 				<Alert variant="light">
 					<p>

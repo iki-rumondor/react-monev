@@ -14,6 +14,12 @@ export default function Skill() {
 	const [values, setValues] = useState(null);
 	const {yearID} = useParams();
 	const [year, setYear] = useState(null);
+	const breadcumb = [
+		{
+			"name": "Monev Awal Semester",
+			"link": `/first-monev/years/${yearID}`,
+		}
+	];
 
 	const handleLoad = async () => {
 		try {
@@ -36,7 +42,9 @@ export default function Skill() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Kesesuaian Mata Kuliah Dengan Kemampuan Dosen: ${year?.name}`}
+				header={sprintf("Tahun Ajaran : %s", year?.name)}
+				breadcumb={breadcumb}
+				title={"Kesesuaian Kemampuan Dosen Dengan Mata Kuliah"}
 			>
 				<Create yearUuid={yearID} />
 				<Card>

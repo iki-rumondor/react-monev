@@ -13,6 +13,12 @@ export const SubTools = () => {
 	const [values, setValues] = useState(null);
 	const [year, setYear] = useState(null);
 	const { yearID } = useParams();
+	const breadcumb = [
+		{
+			"name": "Monev Awal Semester",
+			"link": `/first-monev/years/${yearID}`,
+		}
+	];
 
 	const loadHandler = async () => {
 		try {
@@ -32,7 +38,9 @@ export const SubTools = () => {
 	return (
 		<>
 			<DashboardLayout
-				header={sprintf("Alat Praktikum Tahun Ajaran : %s", year?.name)}
+				header={sprintf("Tahun Ajaran : %s", year?.name)}
+				breadcumb={breadcumb}
+				title={"Ketersediaan Alat praktikum"}
 			>
 				<Card>
 					<CardBody>

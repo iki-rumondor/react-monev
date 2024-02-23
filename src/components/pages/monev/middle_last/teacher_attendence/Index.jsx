@@ -6,14 +6,18 @@ import { useParams } from "react-router-dom";
 import useLoading from "../../../../hooks/useLoading";
 import DashboardLayout from "../../../DashboardLayout";
 import { fetchAPI } from "../../../../utils/Fetching";
-import { DeleteModal } from "../../../../layout/modals/DeleteModal";
 
 export default function MiddleLastTeacherAttendences() {
 	const { setIsLoading, isSuccess } = useLoading();
 	const [values, setValues] = useState(null);
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
-
+	const breadcumb = [
+		{
+			name: "Monev Sebelum UAS",
+			link: `/middle-last-monev/years/${yearID}`,
+		},
+	];
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
@@ -37,7 +41,9 @@ export default function MiddleLastTeacherAttendences() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Presentase Kehadiran Dosen: ${year?.name}`}
+				header={year?.name}
+				breadcumb={breadcumb}
+				title={"Persentase Kehadiran Dosen Dalam Mengajar"}
 			>
 				<Card>
 					<CardBody>

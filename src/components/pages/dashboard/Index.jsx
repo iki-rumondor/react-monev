@@ -1,12 +1,16 @@
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 import { getUserRole } from "../../../services/utils";
-import { AdminDashboard } from "./Admin";
-import { ProdiDashboard } from "./Prodi";
+import { useEffect } from "react";
 
 export const HomeController = () => {
 	const role = getUserRole();
-	if (role === "ADMIN") {
-		return <AdminDashboard role={role}/>;
-	}
+	const navigate = useNavigate();
 
-	return <ProdiDashboard role={role}/>;
+	useEffect(() => {
+		if (role === "ADMIN") {
+			window.location.href = "/home/admin"
+		}
+		window.location.href = "/home/department"
+	}, []);
+	return;
 };

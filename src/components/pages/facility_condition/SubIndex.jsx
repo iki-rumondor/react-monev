@@ -15,6 +15,12 @@ export const SubFacilityCondition = () => {
 	const [values, setValues] = useState(null);
 	const [year, setYear] = useState(null);
 	const { yearID } = useParams();
+	const breadcumb = [
+		{
+			"name": "Monev Awal Semester",
+			"link": `/first-monev/years/${yearID}`,
+		}
+	];
 
 	const handleLoad = async () => {
 		try {
@@ -39,10 +45,9 @@ export const SubFacilityCondition = () => {
 	return (
 		<>
 			<DashboardLayout
-				header={sprintf(
-					"Kondisi Fasilitas Tahun Ajaran : %s",
-					year?.name
-				)}
+				header={sprintf("Tahun Ajaran : %s", year?.name)}
+				breadcumb={breadcumb}
+				title={"Fasilitas, Sarana, dan Prasarana"}
 			>
 				<Create academic_year={yearID} />
 				<Card>

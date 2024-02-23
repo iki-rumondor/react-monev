@@ -5,11 +5,17 @@ import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
 
 export default function Create() {
-	const { setIsLoading } = useLoading();
+	const { setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
-	const [values, setValues] = useState({
-		name: "",
-	});
+	const defaultValue = {
+		semester: "",
+		year: "",
+	};
+	const [values, setValues] = useState(defaultValue);
+
+	const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+	};
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -18,8 +24,11 @@ export default function Create() {
 		handleClose();
 		try {
 			setIsLoading(true);
+			setIsSuccess(false);
 			const res = await postData("academic-years", "POST", values);
 			toast.success(res.message);
+			setIsSuccess(true);
+			setValues(defaultValue);
 		} catch (error) {
 			toast.error(error.message);
 		} finally {
@@ -43,19 +52,30 @@ export default function Create() {
 					<Modal.Title>Tambah Tahun Ajaran</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form.Group className="mb-3" controlId="code">
-						<Form.Label>Tahun Ajaran</Form.Label>
+					<Form.Group className="mb-3" controlId="year">
+						<Form.Label>Tahun</Form.Label>
 						<Form.Control
-							value={values.name}
+							value={values.year}
+							name="year"
 							type="text"
-							placeholder="Masukkan Tahun Ajaran"
-							onChange={(e) =>
-								setValues({
-									...values,
-									name: e.target.value,
-								})
-							}
+							placeholder="Masukkan Tahun"
+							onChange={handleChange}
 						/>
+					</Form.Group>
+					<Form.Group className="mb-3" controlId="semester">
+						<Form.Label>Semester</Form.Label>
+						<Form.Control
+							as="select"
+							name="semester"
+							value={values?.semester}
+							onChange={handleChange}
+						>
+							<option value="" disabled>
+								Pilih Semester
+							</option>
+							<option>Genap</option>
+							<option>Ganjil</option>
+						</Form.Control>
 					</Form.Group>
 				</Modal.Body>
 				<Modal.Footer>

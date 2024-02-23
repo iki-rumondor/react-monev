@@ -11,6 +11,12 @@ export default function SubjectGrade() {
 	const [values, setValues] = useState(null);
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
+	const breadcumb = [
+		{
+			name: "Monev Setelah UAS",
+			link: `/last-monev/years/${yearID}`,
+		},
+	];
 
 	const handleLoad = async () => {
 		try {
@@ -53,7 +59,9 @@ export default function SubjectGrade() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Pemasukan Nilai Akhir Mata Kuliah: ${year?.name}`}
+				header={year?.name}
+				breadcumb={breadcumb}
+				title={"Pemasukan Nilai Akhir Mata Kuliah"}
 			>
 				<Card>
 					<CardBody>

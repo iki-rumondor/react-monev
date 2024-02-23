@@ -10,6 +10,12 @@ export default function Modul() {
 	const { setIsLoading } = useLoading();
 	const [years, setYears] = useState(null);
 	const [subjects, setSubjects] = useState([]);
+	const breadcumb = [
+		{
+			"name": "Monev Awal Semester",
+			"link": `/first-monev/years/${yearID}`,
+		}
+	];
 
 	const loadHandler = async () => {
 		try {
@@ -20,8 +26,8 @@ export default function Modul() {
 			setSubjects(subjects.data);
 		} catch (error) {
 			toast.error(error.message);
-		}finally{
-			setIsLoading(false)
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -31,11 +37,19 @@ export default function Modul() {
 
 	return (
 		<>
-			<DashboardLayout header={"Ketersediaan Modul Praktikum"}>
+			<DashboardLayout
+				header={"Ketersediaan Modul Praktikum"}
+				
+			>
 				<Row>
-					{years && years.map((item, idx) => (
-						<ModulCard key={idx} data={item} totalSubjects={subjects?.length ?? 0}/>
-					))}
+					{years &&
+						years.map((item, idx) => (
+							<ModulCard
+								key={idx}
+								data={item}
+								totalSubjects={subjects?.length ?? 0}
+							/>
+						))}
 				</Row>
 			</DashboardLayout>
 		</>

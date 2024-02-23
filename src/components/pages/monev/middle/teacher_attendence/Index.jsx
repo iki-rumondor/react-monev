@@ -13,6 +13,12 @@ export default function MiddleTeacherAttendences() {
 	const [values, setValues] = useState(null);
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
+	const breadcumb = [
+		{
+			name: "Monev Tengah Semester",
+			link: `/middle-monev/years/${yearID}`,
+		},
+	];
 
 	const handleLoad = async () => {
 		try {
@@ -37,7 +43,9 @@ export default function MiddleTeacherAttendences() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Presentase Kehadiran Dosen: ${year?.name}`}
+				header={year?.name}
+				breadcumb={breadcumb}
+				title={"Persentase Kehadiran Dosen Dalam Mengajar"}
 			>
 				<Create yearUuid={yearID} />
 				<Card>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Row } from "react-bootstrap";
-import toast from "react-hot-toast";
-import { YearCard } from "./Card";
 import DashboardLayout from "../../DashboardLayout";
-import { fetchAPI } from "../../../utils/Fetching";
+import { Row } from "react-bootstrap";
 import useLoading from "../../../hooks/useLoading";
+import { YearCard } from "../../../layout/cards/YearCard";
+import toast from "react-hot-toast";
+import { fetchAPI } from "../../../utils/Fetching";
 
-export default function MiddleLastMonev() {
+export const YearMonitoring = () => {
 	const { setIsLoading } = useLoading();
 	const [years, setYears] = useState(null);
 
@@ -25,20 +25,21 @@ export default function MiddleLastMonev() {
 	useEffect(() => {
 		handleLoad();
 	}, []);
-
 	return (
 		<>
-			<DashboardLayout header={"Monev Akhir Sebelum UAS"}>
+			<DashboardLayout header={"Monitoring Program Studi"}>
 				<Row>
 					{years &&
 						years.map((item, idx) => (
 							<YearCard
 								key={idx}
-								data={item}
+								name={item.name}
+								status={item.open}
+								link={`/monitoring/years/${item.uuid}`}
 							/>
 						))}
 				</Row>
 			</DashboardLayout>
 		</>
 	);
-}
+};

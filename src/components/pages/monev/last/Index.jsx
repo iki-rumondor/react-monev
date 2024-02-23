@@ -16,7 +16,7 @@ export default function LastMonev() {
 			const years = await fetchAPI("/api/academic-years");
 			setYears(years.data);
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
 		} finally {
 			setIsLoading(false);
 		}

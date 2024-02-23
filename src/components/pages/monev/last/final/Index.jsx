@@ -12,6 +12,12 @@ export default function StudentFinal() {
 	const [values, setValues] = useState(null);
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
+	const breadcumb = [
+		{
+			name: "Monev Setelah UAS",
+			link: `/last-monev/years/${yearID}`,
+		},
+	];
 
 	const handleLoad = async () => {
 		try {
@@ -36,7 +42,9 @@ export default function StudentFinal() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Persentase Keikutsertaan Mahasiswa Mengikuti UAS: ${year?.name}`}
+				header={year?.name}
+				breadcumb={breadcumb}
+				title={"Persentase Mahasiswa Mengikuti UAS"}
 			>
 				<Card>
 					<CardBody>

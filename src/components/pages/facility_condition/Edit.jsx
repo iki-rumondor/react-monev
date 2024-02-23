@@ -26,7 +26,7 @@ export default function Edit({ uuid }) {
 				note: res.data.note,
 			});
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
 		}
 	};
 

@@ -13,6 +13,13 @@ export default function MiddlePlans() {
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
 
+	const breadcumb = [
+		{
+			name: "Monev Tengah Semester",
+			link: `/middle-monev/years/${yearID}`,
+		},
+	];
+
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
@@ -54,7 +61,9 @@ export default function MiddlePlans() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Kesesuaian Mengajar Dosen dengan RPS: ${year?.name}`}
+				header={year?.name}
+				breadcumb={breadcumb}
+				title={"Kesesuaian Mengajar Dosen dengan RPS"}
 			>
 				<Card>
 					<CardBody>

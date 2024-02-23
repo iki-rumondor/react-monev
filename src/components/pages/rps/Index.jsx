@@ -14,6 +14,12 @@ export const SubRPS = () => {
 	const [values, setValues] = useState(null);
 	const [year, setYear] = useState(null);
 	const { yearID } = useParams();
+	const breadcumb = [
+		{
+			"name": "Monev Awal Semester",
+			"link": `/first-monev/years/${yearID}`,
+		}
+	];
 
 	const loadHandler = async () => {
 		try {
@@ -33,7 +39,9 @@ export const SubRPS = () => {
 	return (
 		<>
 			<DashboardLayout
-				header={sprintf("RPS Tahun Ajaran : %s", year?.name)}
+				header={sprintf("Tahun Ajaran : %s", year?.name)}
+				breadcumb={breadcumb}
+				title={"Ketersediaan Rencana Pembelajaran Semester"}
 			>
 				<Create yearUuid={yearID}/>
 				<Card>

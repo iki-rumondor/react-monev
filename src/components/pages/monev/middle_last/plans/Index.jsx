@@ -11,7 +11,13 @@ export default function MiddleLastPlans() {
 	const [values, setValues] = useState(null);
 	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
-
+	const breadcumb = [
+		{
+			name: "Monev Sebelum UAS",
+			link: `/middle-last-monev/years/${yearID}`,
+		},
+	];
+	
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
@@ -53,7 +59,9 @@ export default function MiddleLastPlans() {
 	return (
 		<>
 			<DashboardLayout
-				header={`Kesesuaian Mengajar Dosen dengan RPS: ${year?.name}`}
+				header={year?.name}
+				breadcumb={breadcumb}
+				title={"Kesesuaian Mengajar Dosen dengan RPS"}
 			>
 				<Card>
 					<CardBody>

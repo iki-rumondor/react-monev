@@ -31,7 +31,7 @@ export default function ProdiTable() {
 					<DefaultTable.Tr>
 						<DefaultTable.Th>No</DefaultTable.Th>
 						<DefaultTable.Th>Nama</DefaultTable.Th>
-						<DefaultTable.Th>Kepala Program Studi</DefaultTable.Th>
+						<DefaultTable.Th>Koordinator Program Studi</DefaultTable.Th>
 						<DefaultTable.Th>Jurusan</DefaultTable.Th>
 						<DefaultTable.Th>Username</DefaultTable.Th>
 						<DefaultTable.Th>Aksi</DefaultTable.Th>

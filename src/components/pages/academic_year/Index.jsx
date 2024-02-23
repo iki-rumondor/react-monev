@@ -7,6 +7,7 @@ import { fetchData } from "../../../services/api";
 import Create from "./Create";
 import Delete from "./Delete";
 import Edit from "./Edit";
+import Open from "./Open";
 
 export default function AcademicYear() {
 	const { isLoading } = useLoading();
@@ -33,7 +34,9 @@ export default function AcademicYear() {
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>Nama</th>
+							<th>Semester</th>
+							<th>Tahun</th>
+							<th>Status</th>
 							<th>Aksi</th>
 						</tr>
 					</thead>
@@ -42,7 +45,15 @@ export default function AcademicYear() {
 							values.map((item, idx) => (
 								<tr key={idx}>
 									<td>{idx + 1}</td>
-									<td>{item.name}</td>
+									<td>{item.semester}</td>
+									<td>{item.year}</td>
+									<td>
+										{item.open ? (
+											<span className="badge badge-success">Terbuka</span>
+										) : (
+											<span className="badge badge-danger">Tertutup</span>
+										)}
+									</td>
 									<td>
 										<Dropdown>
 											<Dropdown.Toggle
@@ -54,12 +65,9 @@ export default function AcademicYear() {
 											</Dropdown.Toggle>
 
 											<Dropdown.Menu>
-												<Edit
-													uuid={item.uuid}
-												/>
-												<Delete
-													uuid={item.uuid}
-												/>
+												<Edit uuid={item.uuid} />
+												<Delete uuid={item.uuid} />
+												<Open uuid={item.uuid} value={item.open} />
 											</Dropdown.Menu>
 										</Dropdown>
 									</td>

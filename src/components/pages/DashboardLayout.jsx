@@ -4,8 +4,15 @@ import Sidebar from "../layout/Sidebar";
 import { getUserRole } from "../../services/utils";
 import { ProdiLinks } from "../layout/links/ProdiLinks";
 import { AdminLinks } from "../layout/links/AdminLinks";
+import '/src/assets/js/stisla.js';
+import '/src/assets/js/scripts.js';
 
-export default function DashboardLayout({ header, children }) {
+export default function DashboardLayout({
+	header,
+	breadcumb = null,
+	title,
+	children,
+}) {
 	const role = getUserRole();
 
 	return (
@@ -18,6 +25,16 @@ export default function DashboardLayout({ header, children }) {
 				<section className="section">
 					<div className="section-header">
 						<h1>{header}</h1>
+						{breadcumb && (
+							<div class="section-header-breadcrumb">
+								{breadcumb.map((item, idx) => (
+									<div key={idx} class="breadcrumb-item">
+										<a href={item.link}>{item.name}</a>
+									</div>
+								))}
+								<div class="breadcrumb-item">{title}</div>
+							</div>
+						)}
 					</div>
 					<div className="section-body">{children}</div>
 				</section>

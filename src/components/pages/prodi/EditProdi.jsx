@@ -75,7 +75,6 @@ export default function EditProdi({ uuid }) {
 						<Form.Control
 							value={values.name}
 							type="text"
-							placeholder="Masukkan Nama Program Studi"
 							onChange={(e) =>
 								setValues({
 									...values,
@@ -85,11 +84,10 @@ export default function EditProdi({ uuid }) {
 						/>
 					</Form.Group>
 					<Form.Group className="mb-3" controlId="kaprodi">
-						<Form.Label>Nama Ketua Program Studi</Form.Label>
+						<Form.Label>Nama Koordinator Program Studi</Form.Label>
 						<Form.Control
 							value={values.head}
 							type="text"
-							placeholder="Masukkan Nama Ketua Program Studi"
 							onChange={(e) =>
 								setValues({
 									...values,

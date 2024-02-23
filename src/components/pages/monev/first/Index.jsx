@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { YearCard } from "./Card";
+// import { YearCard } from "./Card";
 import DashboardLayout from "../../DashboardLayout";
 import { fetchAPI } from "../../../utils/Fetching";
 import useLoading from "../../../hooks/useLoading";
+import { YearCard } from "../../../layout/cards/YearCard";
 
 export default function FirstMonev() {
 	const { setIsLoading } = useLoading();
@@ -16,7 +17,7 @@ export default function FirstMonev() {
 			const years = await fetchAPI("/api/academic-years");
 			setYears(years.data);
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -34,7 +35,9 @@ export default function FirstMonev() {
 						years.map((item, idx) => (
 							<YearCard
 								key={idx}
-								data={item}
+								name={item.name}
+								link={`/first-monev/years/${item.uuid}`}
+								status={item.open}
 							/>
 						))}
 				</Row>

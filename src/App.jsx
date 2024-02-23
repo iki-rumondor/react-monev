@@ -6,6 +6,7 @@ import { LoadingProvider } from "./components/context/LoadingProvider.jsx";
 import { AuthProvider } from "./components/context/AuthContext.jsx";
 import { Router } from "./Router.jsx";
 
+
 export default function App() {
 	const { isLoading } = useLoading();
 
