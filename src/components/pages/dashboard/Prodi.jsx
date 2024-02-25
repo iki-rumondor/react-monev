@@ -12,12 +12,20 @@ export const ProdiDashboard = () => {
 	const { setIsLoading } = useLoading();
 	const uuid = getUserUuid();
 	const [values, setValues] = useState(null);
+	const [data, setData] = useState(null);
 
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
 			const res = await fetchAPI("/api/users/" + uuid);
 			setValues(res.data);
+			const s_res = await fetchAPI("/api/subjects");
+			const t_res = await fetchAPI("/api/teachers");
+			setData({
+				...data,
+				subject: s_res?.data?.length,
+				teacher: t_res?.data?.length
+			});
 		} catch (error) {
 			toast.error(error);
 		} finally {
@@ -49,13 +57,13 @@ export const ProdiDashboard = () => {
 					/>
 					<CardDashboard
 						title={"Jumlah Mata Kuliah"}
-						value={10}
+						value={data?.subject}
 						icon="fa-book"
 						color="danger"
 					/>
 					<CardDashboard
 						title={"Jumlah Dosen"}
-						value={10}
+						value={data?.teacher}
 						icon="fa-users"
 						color="warning"
 					/>

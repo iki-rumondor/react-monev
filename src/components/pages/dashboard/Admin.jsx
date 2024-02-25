@@ -6,14 +6,20 @@ import { fetchAPI } from "../../utils/Fetching";
 import { SubjectInfo } from "./modules/Subjects";
 import useLoading from "../../hooks/useLoading";
 
-export const AdminDashboard = ({ role }) => {
+export const AdminDashboard = () => {
 	const { setIsLoading, isSuccess } = useLoading();
 	const [values, setValues] = useState(null);
+	const steps = [
+		"Monev Awal Semester",
+		"Monev Tengah Semester",
+		"Monev Sebelum UAS",
+		"Monev Setelah UAS",
+	];
 
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI("/api/dashboards/subjects");
+			const res = await fetchAPI("/api/dashboards");
 			setValues(res.data);
 		} catch (error) {
 			toast.error(error);
@@ -25,43 +31,39 @@ export const AdminDashboard = ({ role }) => {
 	useEffect(() => {
 		handleLoad();
 	}, [isSuccess]);
-	
+
 	return (
 		<>
-			<DashboardLayout header={"Selamat Datang Admin " + role}>
+			<DashboardLayout header={"Selamat Datang Admin"}>
 				<div className="row">
 					<CardDashboard
-						title={"Mata Kuliah"}
+						title={"Jumlah Mata Kuliah"}
 						value={
 							<SubjectInfo
-								all={values?.general}
-								practical={values?.practical}
+								all={values?.g_subject}
+								practical={values?.p_subject}
 							/>
 						}
 						icon="fa-book"
 					/>
 					<CardDashboard
-						title={"Jumlah Dosen"}
-						value={10}
+						title={"Status Monev"}
+						value={steps[values?.step - 1]}
 						icon="fa-users"
 						color="success"
 					/>
 					<CardDashboard
-						title={"Jumlah Laboratorium"}
-						value={10}
+						title={"Jumlah Tahun Ajaran"}
+						value={values?.year}
 						icon="fa-book"
 						color="danger"
 					/>
 					<CardDashboard
 						title={"Jumlah Dosen"}
-						value={10}
+						value={values?.teacher}
 						icon="fa-users"
 						color="warning"
 					/>
-				</div>
-				<div className="row">
-					<BarChart tipe={"bar"} />
-					<BarChart tipe={"radar"} />
 				</div>
 			</DashboardLayout>
 		</>
