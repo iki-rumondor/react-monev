@@ -17,7 +17,7 @@ export default function MiddleLastPlans() {
 			link: `/middle-last-monev/years/${yearID}`,
 		},
 	];
-	
+
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
@@ -71,8 +71,8 @@ export default function MiddleLastPlans() {
 									<th>No</th>
 									<th>Mata Kuliah</th>
 									<th>Status Tengah Semester</th>
-									<th>Status Sekarang</th>
-									<th>Aksi</th>
+									<th>Status Akhir Semester</th>
+									{year?.open && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -99,21 +99,23 @@ export default function MiddleLastPlans() {
 															Sesuai
 														</span>
 													</td>
-													<td>
-														<Button
-															value={false}
-															variant="danger"
-															className="btn-sm btn-icon"
-															onClick={() => {
-																handleSubmit(
-																	false,
-																	item.uuid
-																);
-															}}
-														>
-															<i className="fas fa-times"></i>
-														</Button>
-													</td>
+													{year?.open && (
+														<td>
+															<Button
+																value={false}
+																variant="danger"
+																className="btn-sm btn-icon"
+																onClick={() => {
+																	handleSubmit(
+																		false,
+																		item.uuid
+																	);
+																}}
+															>
+																<i className="fas fa-times"></i>
+															</Button>
+														</td>
+													)}
 												</>
 											) : (
 												<>
@@ -122,20 +124,22 @@ export default function MiddleLastPlans() {
 															Tidak Sesuai
 														</span>
 													</td>
-													<td>
-														<Button
-															variant="success"
-															className="btn-sm btn-icon"
-															onClick={() => {
-																handleSubmit(
-																	true,
-																	item.uuid
-																);
-															}}
-														>
-															<i className="fas fa-check"></i>
-														</Button>
-													</td>
+													{year?.open && (
+														<td>
+															<Button
+																variant="success"
+																className="btn-sm btn-icon"
+																onClick={() => {
+																	handleSubmit(
+																		true,
+																		item.uuid
+																	);
+																}}
+															>
+																<i className="fas fa-check"></i>
+															</Button>
+														</td>
+													)}
 												</>
 											)}
 										</tr>

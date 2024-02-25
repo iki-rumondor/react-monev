@@ -2,7 +2,7 @@ import React from "react";
 import { Col } from "react-bootstrap";
 
 export const YearCard = ({ name, link, status }) => {
-	let color = "warning";
+	let color = "secondary";
 	let statusName = "Ditutup";
 	if (status) {
 		color = "primary";

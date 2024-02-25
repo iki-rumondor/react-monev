@@ -55,7 +55,7 @@ export default function StudentPassed() {
 									<th>Mata Kuliah</th>
 									<th>Jumlah Mahasiswa</th>
 									<th>Persentase Kelulusan</th>
-									<th>Aksi</th>
+									{year?.open && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -65,10 +65,24 @@ export default function StudentPassed() {
 											<td>{idx + 1}</td>
 											<td>{item.subject.name}</td>
 											<td>{item.student_amount}</td>
-											<td>{Math.round(item.passed_amount/item.student_amount*100)}%</td>
 											<td>
-												<Update uuid={item.uuid} student_amount={item.student_amount}/>
+												{Math.round(
+													(item.passed_amount /
+														item.student_amount) *
+														100
+												)}
+												%
 											</td>
+											{year?.open && (
+												<td>
+													<Update
+														uuid={item.uuid}
+														student_amount={
+															item.student_amount
+														}
+													/>
+												</td>
+											)}
 										</tr>
 									))}
 							</tbody>

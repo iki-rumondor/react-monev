@@ -12,13 +12,13 @@ import { useParams } from "react-router-dom";
 export default function Skill() {
 	const { setIsLoading, isSuccess } = useLoading();
 	const [values, setValues] = useState(null);
-	const {yearID} = useParams();
+	const { yearID } = useParams();
 	const [year, setYear] = useState(null);
 	const breadcumb = [
 		{
-			"name": "Monev Awal Semester",
-			"link": `/first-monev/years/${yearID}`,
-		}
+			name: "Monev Awal Semester",
+			link: `/first-monev/years/${yearID}`,
+		},
 	];
 
 	const handleLoad = async () => {
@@ -46,7 +46,7 @@ export default function Skill() {
 				breadcumb={breadcumb}
 				title={"Kesesuaian Kemampuan Dosen Dengan Mata Kuliah"}
 			>
-				<Create yearUuid={yearID} />
+				{year?.open && <Create yearUuid={yearID} />}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -56,7 +56,7 @@ export default function Skill() {
 									<th>Nama Dosen</th>
 									<th>Mata Kuliah</th>
 									<th>Kemampuan</th>
-									<th>Aksi</th>
+									{year?.open && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -67,26 +67,28 @@ export default function Skill() {
 											<td>{item.teacher.name}</td>
 											<td>{item.subject.name}</td>
 											<td>{item.skill}</td>
-											<td>
-												<Dropdown>
-													<Dropdown.Toggle
-														className="btn-sm"
-														variant="danger"
-														id="dropdown-basic"
-													>
-														Pilih
-													</Dropdown.Toggle>
+											{year?.open && (
+												<td>
+													<Dropdown>
+														<Dropdown.Toggle
+															className="btn-sm"
+															variant="danger"
+															id="dropdown-basic"
+														>
+															Pilih
+														</Dropdown.Toggle>
 
-													<Dropdown.Menu>
-														<Edit
-															uuid={item.uuid}
-														/>
-														<Delete
-															uuid={item.uuid}
-														/>
-													</Dropdown.Menu>
-												</Dropdown>
-											</td>
+														<Dropdown.Menu>
+															<Edit
+																uuid={item.uuid}
+															/>
+															<Delete
+																uuid={item.uuid}
+															/>
+														</Dropdown.Menu>
+													</Dropdown>
+												</td>
+											)}
 										</tr>
 									))}
 							</tbody>

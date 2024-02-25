@@ -22,6 +22,9 @@ export const AdminLinks = () => {
 			<Sidebar.Link path={"/monitoring"} icon={"fa-user"}>
 				Monitoring
 			</Sidebar.Link>
+			<Sidebar.Link path={"/monev/data"} icon={"fa-user"}>
+				Data Monev
+			</Sidebar.Link>
 		</>
 	);
 };

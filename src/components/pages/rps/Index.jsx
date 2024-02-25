@@ -16,14 +16,14 @@ export const SubRPS = () => {
 	const { yearID } = useParams();
 	const breadcumb = [
 		{
-			"name": "Monev Awal Semester",
-			"link": `/first-monev/years/${yearID}`,
-		}
+			name: "Monev Awal Semester",
+			link: `/first-monev/years/${yearID}`,
+		},
 	];
 
 	const loadHandler = async () => {
 		try {
-			const res = await fetchAPI("/api/academic-plans");
+			const res = await fetchAPI("/api/academic-plans/years/" + yearID);
 			const year = await fetchAPI("/api/academic-years/" + yearID);
 			setValues(res.data);
 			setYear(year.data);
@@ -39,11 +39,11 @@ export const SubRPS = () => {
 	return (
 		<>
 			<DashboardLayout
-				header={sprintf("Tahun Ajaran : %s", year?.name)}
+				header={year?.name}
 				breadcumb={breadcumb}
 				title={"Ketersediaan Rencana Pembelajaran Semester"}
 			>
-				<Create yearUuid={yearID}/>
+				{year?.open && <Create yearUuid={yearID} />}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -53,7 +53,7 @@ export const SubRPS = () => {
 									<th>Mata Kuliah</th>
 									<th>Status</th>
 									<th>Keterangan</th>
-									<th>Aksi</th>
+									{year?.open && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -64,17 +64,23 @@ export const SubRPS = () => {
 											<td>{item.subject.name}</td>
 											<td>
 												{item.available ? (
-													<span className="badge badge-success">Tersedia</span>
+													<span className="badge badge-success">
+														Tersedia
+													</span>
 												) : (
-													<span className="badge badge-warning">Tidak Tersedia</span>
+													<span className="badge badge-warning">
+														Tidak Tersedia
+													</span>
 												)}
 											</td>
 											<td>{item.note}</td>
-											<td>
-												<DeleteModal
-													endpoint={`/api/academic-plans/${item.uuid}`}
-												/>
-											</td>
+											{year?.open && (
+												<td>
+													<DeleteModal
+														endpoint={`/api/academic-plans/${item.uuid}`}
+													/>
+												</td>
+											)}
 										</tr>
 									))}
 							</tbody>

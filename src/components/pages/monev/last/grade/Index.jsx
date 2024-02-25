@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Alert, Button, Card, CardBody, Dropdown, Table } from "react-bootstrap";
+import {
+	Alert,
+	Button,
+	Card,
+	CardBody,
+	Dropdown,
+	Table,
+} from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import useLoading from "../../../../hooks/useLoading";
 import DashboardLayout from "../../../DashboardLayout";
@@ -72,7 +79,7 @@ export default function SubjectGrade() {
 									<th>Mata Kuliah</th>
 									<th>Penanggung Jawab</th>
 									<th>Status</th>
-									<th>Aksi</th>
+									{year?.open && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -89,21 +96,23 @@ export default function SubjectGrade() {
 															Tepat Waktu
 														</span>
 													</td>
-													<td>
-														<Button
-															value={false}
-															variant="danger"
-															className="btn-sm btn-icon"
-															onClick={() => {
-																handleSubmit(
-																	false,
-																	item.uuid
-																);
-															}}
-														>
-															<i className="fas fa-times"></i>
-														</Button>
-													</td>
+													{year?.open && (
+														<td>
+															<Button
+																value={false}
+																variant="danger"
+																className="btn-sm btn-icon"
+																onClick={() => {
+																	handleSubmit(
+																		false,
+																		item.uuid
+																	);
+																}}
+															>
+																<i className="fas fa-times"></i>
+															</Button>
+														</td>
+													)}
 												</>
 											) : (
 												<>
@@ -112,20 +121,22 @@ export default function SubjectGrade() {
 															Tidak Tepat Waktu
 														</span>
 													</td>
-													<td>
-														<Button
-															variant="success"
-															className="btn-sm btn-icon"
-															onClick={() => {
-																handleSubmit(
-																	true,
-																	item.uuid
-																);
-															}}
-														>
-															<i className="fas fa-check"></i>
-														</Button>
-													</td>
+													{year?.open && (
+														<td>
+															<Button
+																variant="success"
+																className="btn-sm btn-icon"
+																onClick={() => {
+																	handleSubmit(
+																		true,
+																		item.uuid
+																	);
+																}}
+															>
+																<i className="fas fa-check"></i>
+															</Button>
+														</td>
+													)}
 												</>
 											)}
 										</tr>

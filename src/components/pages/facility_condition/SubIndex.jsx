@@ -17,9 +17,9 @@ export const SubFacilityCondition = () => {
 	const { yearID } = useParams();
 	const breadcumb = [
 		{
-			"name": "Monev Awal Semester",
-			"link": `/first-monev/years/${yearID}`,
-		}
+			name: "Monev Awal Semester",
+			link: `/first-monev/years/${yearID}`,
+		},
 	];
 
 	const handleLoad = async () => {
@@ -49,7 +49,7 @@ export const SubFacilityCondition = () => {
 				breadcumb={breadcumb}
 				title={"Fasilitas, Sarana, dan Prasarana"}
 			>
-				<Create academic_year={yearID} />
+				{year?.open && <Create academic_year={yearID} />}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -60,7 +60,7 @@ export const SubFacilityCondition = () => {
 									<th>Jumlah</th>
 									<th>Tidak Berfungsi</th>
 									<th>Catatan</th>
-									<th>Aksi</th>
+									{year?.open && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -74,26 +74,28 @@ export const SubFacilityCondition = () => {
 												<span className="badge badge-warning">{`${item.deactive} ${item.unit}`}</span>
 											</td>
 											<td>{item.note}</td>
-											<td>
-												<Dropdown>
-													<Dropdown.Toggle
-														className="btn-sm"
-														variant="danger"
-														id="dropdown-basic"
-													>
-														Pilih
-													</Dropdown.Toggle>
+											{year?.open && (
+												<td>
+													<Dropdown>
+														<Dropdown.Toggle
+															className="btn-sm"
+															variant="danger"
+															id="dropdown-basic"
+														>
+															Pilih
+														</Dropdown.Toggle>
 
-													<Dropdown.Menu>
-														<Edit
-															uuid={item.uuid}
-														/>
-														<Delete
-															uuid={item.uuid}
-														/>
-													</Dropdown.Menu>
-												</Dropdown>
-											</td>
+														<Dropdown.Menu>
+															<Edit
+																uuid={item.uuid}
+															/>
+															<Delete
+																uuid={item.uuid}
+															/>
+														</Dropdown.Menu>
+													</Dropdown>
+												</td>
+											)}
 										</tr>
 									))}
 							</tbody>

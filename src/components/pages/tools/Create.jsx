@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
-import { postData } from "../../../services/api";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
+import { fetchAPI, postAPI } from "../../utils/Fetching";
 
-export default function Create({ subject_uuid, academic_year_uuid }) {
-	const { setIsLoading } = useLoading();
+export default function Create({ academic_year_uuid }) {
+	const { isSuccess, setIsLoading, setIsSuccess } = useLoading();
+	const [subjects, setSubjects] = useState(null);
 	const [show, setShow] = useState(false);
-	const [values, setValues] = useState({
+	const defaultValue = {
 		condition: "",
 		available: false,
 		note: "",
-		subject_uuid: subject_uuid,
+		subject_uuid: "",
 		academic_year_uuid: academic_year_uuid,
-	});
+	};
+
+	const [values, setValues] = useState(defaultValue);
+
+	const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+	};
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -21,36 +28,50 @@ export default function Create({ subject_uuid, academic_year_uuid }) {
 	const postHandler = async () => {
 		handleClose();
 		try {
+			setIsSuccess(false);
 			setIsLoading(true);
-			const res = await postData("practical-tools", "POST", values);
+			const res = await postAPI("/api/practical-tools", "POST", values);
 			toast.success(res.message);
+			setIsSuccess(true);
+			setValues(defaultValue);
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
 		} finally {
 			setIsLoading(false);
 		}
 	};
 
-	useEffect(() => {
-		if (!values.available){
-			setValues({
-				...values,
-				condition: ""
-			})
-		}else{
-			setValues({
-				...values,
-				condition: "RUSAK"
-			})
+	const loadHandler = async () => {
+		try {
+			const s_res = await fetchAPI(
+				`/api/subjects/tables/practical_tools/years/${academic_year_uuid}`
+			);
+			setSubjects(s_res?.data);
+		} catch (error) {
+			toast.error(error);
 		}
+	};
 
-	}, [values.available])
+	useEffect(() => {
+		loadHandler();
+		if (!values.available) {
+			setValues({
+				...values,
+				condition: "",
+			});
+		} else {
+			setValues({
+				...values,
+				condition: "BAIK",
+			});
+		}
+	}, [isSuccess, values.available]);
 
 	return (
 		<>
-			<Dropdown.Item href="#" onClick={handleShow}>
+			<Button className="mb-3" onClick={handleShow}>
 				Lengkapi Data
-			</Dropdown.Item>
+			</Button>
 
 			<Modal
 				show={show}
@@ -62,17 +83,40 @@ export default function Create({ subject_uuid, academic_year_uuid }) {
 					<Modal.Title>Lengkapi Data</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
+					<Form.Group className="mb-3" controlId="subject">
+						<Form.Label>Mata Kuliah</Form.Label>
+						<Form.Control
+							as="select"
+							name="subject_uuid"
+							value={values?.subject_uuid}
+							onChange={handleChange}
+						>
+							<option value="" disabled>
+								Pilih Mata Kuliah
+							</option>
+							{subjects &&
+								subjects.map((item, idx) => {
+									if (item.practical) {
+										return (
+											<option key={idx} value={item.uuid}>
+												{item.name}
+											</option>
+										);
+									}
+								})}
+						</Form.Control>
+					</Form.Group>
 					<Form.Group controlId="ketersediaan" className="mb-3">
 						<Form.Label>Ketersediaan</Form.Label>
 						<Form.Control
 							as="select"
 							value={values.available}
-							onChange={(e) =>
+							onChange={(e) => {
 								setValues({
 									...values,
 									available: e.target.value == "true",
-								})
-							}
+								});
+							}}
 						>
 							<option value="false">Tidak Tersedia</option>
 							<option value="true">Tersedia</option>

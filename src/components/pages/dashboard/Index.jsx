@@ -4,13 +4,10 @@ import { useEffect } from "react";
 
 export const HomeController = () => {
 	const role = getUserRole();
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (role === "ADMIN") {
-			window.location.href = "/home/admin"
-		}
-		window.location.href = "/home/department"
-	}, []);
+	if (role === "ADMIN") {
+		window.location.href = "/home/admin";
+		return
+	}
+	window.location.href = "/home/department";
 	return;
 };

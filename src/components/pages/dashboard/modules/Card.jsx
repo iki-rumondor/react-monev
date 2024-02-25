@@ -10,7 +10,7 @@ export const CardDashboard = ({
 }) => {
 	return (
 		<>
-			<div className="col-xl-3 col-sm-6 col-12">
+			<div className="col-sm-6 col-12">
 				<div className="card card-statistic-1">
 					<div
 						className={classNames(

@@ -26,13 +26,13 @@ export default function DashboardLayout({
 					<div className="section-header">
 						<h1>{header}</h1>
 						{breadcumb && (
-							<div class="section-header-breadcrumb">
+							<div className="section-header-breadcrumb">
 								{breadcumb.map((item, idx) => (
-									<div key={idx} class="breadcrumb-item">
+									<div key={idx} className="breadcrumb-item">
 										<a href={item.link}>{item.name}</a>
 									</div>
 								))}
-								<div class="breadcrumb-item">{title}</div>
+								<div className="breadcrumb-item">{title}</div>
 							</div>
 						)}
 					</div>

@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import useLoading from "../../../../hooks/useLoading";
 import DashboardLayout from "../../../DashboardLayout";
 import { fetchAPI } from "../../../../utils/Fetching";
-import {DeleteModal} from "../../../../layout/modals/DeleteModal";
+import { DeleteModal } from "../../../../layout/modals/DeleteModal";
 
 export default function MiddleStudentAttendences() {
 	const { setIsLoading, isSuccess } = useLoading();
@@ -48,9 +48,10 @@ export default function MiddleStudentAttendences() {
 				breadcumb={breadcumb}
 				title={"Persentase Kehadiran Mahasiswa"}
 			>
-				<Create yearUuid={yearID} />
+				{year?.open && <Create yearUuid={yearID} />}
 				<Alert variant="light">
-					Persentase Kehadiran = Persentase Kehadiran Mahasiswa Yang Lebih Dari 75%
+					Persentase Kehadiran = Persentase Kehadiran Mahasiswa Yang
+					Lebih Dari 75%
 				</Alert>
 				<Card>
 					<CardBody>
@@ -61,7 +62,7 @@ export default function MiddleStudentAttendences() {
 									<th>Mata Kuliah</th>
 									<th>Jumlah Mahasiswa</th>
 									<th>Persentase Kehadiran</th>
-									<th>Aksi</th>
+									{year?.open && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -71,12 +72,21 @@ export default function MiddleStudentAttendences() {
 											<td>{idx + 1}</td>
 											<td>{item.subject.name}</td>
 											<td>{item.student_amount}</td>
-											<td>{Math.round(item.middle/item.student_amount*100)}%</td>
 											<td>
-												<DeleteModal
-													endpoint={`/api/middle-monev/student-attendences/${item.uuid}`}
-												/>
+												{Math.round(
+													(item.middle /
+														item.student_amount) *
+														100
+												)}
+												%
 											</td>
+											{year?.open && (
+												<td>
+													<DeleteModal
+														endpoint={`/api/middle-monev/student-attendences/${item.uuid}`}
+													/>
+												</td>
+											)}
 										</tr>
 									))}
 							</tbody>

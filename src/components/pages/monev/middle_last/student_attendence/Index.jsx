@@ -48,11 +48,12 @@ export default function MiddleLastStudentAttendences() {
 			>
 				<Alert variant="light">
 					<p>
-						Persentase Sebelum = Persentase Kehadiran Mahasiswa Saat
+						Persentase Tengah = Persentase Kehadiran Mahasiswa Saat
 						Tengah Semester Yang Lebih Dari 75%
 					</p>
 					<p>
-						Persentase Sekarang = Persentase Kehadiran Mahasiswa Sebelum UAS Yang Lebih Dari 75%
+						Persentase Akhir = Persentase Kehadiran Mahasiswa
+						Sebelum UAS Yang Lebih Dari 75%
 					</p>
 				</Alert>
 				<Card>
@@ -63,9 +64,9 @@ export default function MiddleLastStudentAttendences() {
 									<th>No</th>
 									<th>Mata Kuliah</th>
 									<th>Jumlah Mahasiswa</th>
-									<th>Persentase Tengah Semester</th>
-									<th>Persentase Sekarang</th>
-									<th>Aksi</th>
+									<th>Persentase Tengah</th>
+									<th>Persentase Akhir</th>
+									{year?.open && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -91,9 +92,11 @@ export default function MiddleLastStudentAttendences() {
 												)}
 												%
 											</td>
-											<td>
-												<Update uuid={item.uuid} />
-											</td>
+											{year?.open && (
+												<td>
+													<Update uuid={item.uuid} />
+												</td>
+											)}
 										</tr>
 									))}
 							</tbody>

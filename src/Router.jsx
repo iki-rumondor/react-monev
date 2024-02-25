@@ -12,8 +12,7 @@ import Laboratory from "./components/pages/laboratory/Index";
 import AcademicYear from "./components/pages/academic_year/Index";
 import Teacher from "./components/pages/teacher/Index";
 import { SubRPS } from "./components/pages/rps/Index";
-import { SubTools } from "./components/pages/tools/SubIndex";
-import { SubModul } from "./components/pages/modul/SubIndex";
+import { Tools } from "./components/pages/tools/Index";
 import { HomeController } from "./components/pages/dashboard/Index";
 import Skill from "./components/pages/skill/Index";
 import Fasility from "./components/pages/fasilitas/Index";
@@ -39,6 +38,8 @@ import Monitoring from "./components/pages/admin/monitoring/Index";
 import { YearMonitoring } from "./components/pages/admin/monitoring/Year";
 import { AdminDashboard } from "./components/pages/dashboard/Admin";
 import { ProdiDashboard } from "./components/pages/dashboard/Prodi";
+import MonevData from "./components/pages/admin/monev_data/Index";
+import { Modul } from "./components/pages/modul/Index";
 
 export const Router = () => {
 	return (
@@ -59,6 +60,10 @@ export const Router = () => {
 						<Route
 							path="/monitoring"
 							element={<YearMonitoring />}
+						/>
+						<Route
+							path="/monev/data"
+							element={<MonevData />}
 						/>
 						<Route
 							path="/academic-years"
@@ -93,11 +98,11 @@ export const Router = () => {
 							/>
 							<Route
 								path="/tools/years/:yearID"
-								element={<SubTools />}
+								element={<Tools />}
 							/>
 							<Route
 								path="/modules/years/:yearID"
-								element={<SubModul />}
+								element={<Modul />}
 							/>
 							<Route
 								path="/skills/years/:yearID"

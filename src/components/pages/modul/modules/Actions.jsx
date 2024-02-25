@@ -4,7 +4,7 @@ import Create from "../Create";
 import Edit from "../Edit";
 import Detail from "../Detail";
 
-export const Actions = ({ item, status, academic_year_uuid }) => {
+export const Actions = ({ item, status, academic_year_uuid, open }) => {
 	return (
 		<Dropdown>
 			<Dropdown.Toggle
@@ -18,16 +18,16 @@ export const Actions = ({ item, status, academic_year_uuid }) => {
 			<Dropdown.Menu>
 				{status ? (
 					<>
-						<Edit
-							uuid={item.practical_module.uuid}
-						/>
+						{open && <Edit uuid={item.practical_module.uuid} />}
 						<Detail uuid={item.practical_module.uuid} />
 					</>
 				) : (
-					<Create
-						subject_uuid={item.uuid}
-						academic_year_uuid={academic_year_uuid}
-					/>
+					open && (
+						<Create
+							subject_uuid={item.uuid}
+							academic_year_uuid={academic_year_uuid}
+						/>
+					)
 				)}
 			</Dropdown.Menu>
 		</Dropdown>

@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dropdown, Form, Modal } from "react-bootstrap";
-import { fetchData, postData } from "../../../services/api";
+import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
+import { fetchAPI, postAPI } from "../../utils/Fetching";
 
-export default function Create({ subject_uuid, academic_year_uuid }) {
-	const { setIsLoading } = useLoading();
+export default function Create({ academic_year_uuid }) {
+	const { isSuccess, setIsLoading, setIsSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 	const [labs, setLabs] = useState(null);
-	const [values, setValues] = useState({
+	const [subjects, setSubjects] = useState(null);
+	const defaultValue = {
 		available: false,
 		note: "",
 		laboratory_uuid: "",
-		subject_uuid: subject_uuid,
+		subject_uuid: "",
 		academic_year_uuid: academic_year_uuid,
-	});
+	};
+
+	const [values, setValues] = useState(defaultValue);
+
+	const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+	};
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -22,11 +29,14 @@ export default function Create({ subject_uuid, academic_year_uuid }) {
 	const postHandler = async () => {
 		handleClose();
 		try {
+			setIsSuccess(false);
 			setIsLoading(true);
-			const res = await postData("practical-modules", "POST", values);
+			const res = await postAPI("/api/practical-modules", "POST", values);
 			toast.success(res.message);
+			setIsSuccess(true);
+			setValues(defaultValue);
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -34,26 +44,26 @@ export default function Create({ subject_uuid, academic_year_uuid }) {
 
 	const loadHandler = async () => {
 		try {
-			const res = await fetchData("laboratories");
+			const res = await fetchAPI("/api/laboratories");
 			setLabs(res.data);
+			const s_res = await fetchAPI(
+				`/api/subjects/tables/practical_modules/years/${academic_year_uuid}`
+			);
+			setSubjects(s_res.data);
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
 		}
 	};
 
 	useEffect(() => {
 		loadHandler();
-	}, []);
+	}, [isSuccess]);
 
 	return (
 		<>
-			<Dropdown.Item
-				className="text-primary"
-				href="#"
-				onClick={handleShow}
-			>
+			<Button className="mb-3" onClick={handleShow}>
 				Lengkapi Data
-			</Dropdown.Item>
+			</Button>
 
 			<Modal
 				show={show}
@@ -65,6 +75,29 @@ export default function Create({ subject_uuid, academic_year_uuid }) {
 					<Modal.Title>Lengkapi Data</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
+					<Form.Group className="mb-3" controlId="subject">
+						<Form.Label>Mata Kuliah</Form.Label>
+						<Form.Control
+							as="select"
+							name="subject_uuid"
+							value={values?.subject_uuid}
+							onChange={handleChange}
+						>
+							<option value="" disabled>
+								Pilih Mata Kuliah
+							</option>
+							{subjects &&
+								subjects.map((item, idx) => {
+									if (item.practical) {
+										return (
+											<option key={idx} value={item.uuid}>
+												{item.name}
+											</option>
+										);
+									}
+								})}
+						</Form.Control>
+					</Form.Group>
 					<Form.Group controlId="labs" className="mb-3">
 						<Form.Label>Laboratorium</Form.Label>
 						<Form.Control
@@ -77,7 +110,9 @@ export default function Create({ subject_uuid, academic_year_uuid }) {
 								})
 							}
 						>
-							<option value="" disabled>Pilih Laboratorium</option>
+							<option value="" disabled>
+								Pilih Laboratorium
+							</option>
 							{labs &&
 								labs.map((item, idx) => (
 									<option key={idx} value={item.uuid}>

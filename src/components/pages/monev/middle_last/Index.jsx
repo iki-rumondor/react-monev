@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { YearCard } from "./Card";
 import DashboardLayout from "../../DashboardLayout";
 import { fetchAPI } from "../../../utils/Fetching";
 import useLoading from "../../../hooks/useLoading";
+import { YearCard } from "../../../layout/cards/YearCard";
 
 export default function MiddleLastMonev() {
 	const { setIsLoading } = useLoading();
@@ -34,7 +34,9 @@ export default function MiddleLastMonev() {
 						years.map((item, idx) => (
 							<YearCard
 								key={idx}
-								data={item}
+								name={item.name}
+								status={item.open}
+								link={`/middle-last-monev/years/${item.uuid}`}
 							/>
 						))}
 				</Row>

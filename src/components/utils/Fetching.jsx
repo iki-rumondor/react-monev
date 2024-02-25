@@ -73,9 +73,13 @@ export const fetchAPI = async (endpoint) => {
 				Authorization: `Bearer ${accessToken}`,
 			},
 		});
-		return response.data;
+		return response?.data;
 	} catch (error) {
-		throw  error.response?.data?.message ?? error?.message;
+		if (error.response?.data?.message == undefined) {
+			throw error.message;
+		} else {
+			throw error.response?.data?.message ?? error?.message;
+		}
 	}
 };
 

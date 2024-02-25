@@ -1,6 +1,6 @@
 import Chart from "react-apexcharts";
 
-export const ChartModel = ({ categories, data, type }) => {
+export const ChartModel = ({ categories, series, type }) => {
 	const options = {
 		chart: {
 			id: "basic-bar",
@@ -10,16 +10,11 @@ export const ChartModel = ({ categories, data, type }) => {
 		},
 		xaxis: {
 			categories: categories,
-			position: "top",
 		},
+		colors: ['#2F539B', '#33FFB7']
 	};
 
-	const series = [
-		{
-			name: "Data",
-			data: data,
-		},
-	];
+	
 
 	return <Chart options={options} series={series} type={type} />;
 };
