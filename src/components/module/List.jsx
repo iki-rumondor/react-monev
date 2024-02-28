@@ -26,8 +26,8 @@ export function MessageList() {
 export const ListKeyValue = ({keys, value}) => {
 	return (
 		<div className="row mb-2">
-			<p className="col-6">{keys}</p>
-			<p className="col-6 text-right">
+			<p className="col-5">{keys}</p>
+			<p className="col-7 text-right">
 				<strong>{value}</strong>
 			</p>
 		</div>

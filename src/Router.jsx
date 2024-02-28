@@ -40,6 +40,7 @@ import { AdminDashboard } from "./components/pages/dashboard/Admin";
 import { ProdiDashboard } from "./components/pages/dashboard/Prodi";
 import MonevData from "./components/pages/admin/monev_data/Index";
 import { Modul } from "./components/pages/modul/Index";
+import User from "./components/pages/admin/user/Index";
 
 export const Router = () => {
 	return (
@@ -53,6 +54,7 @@ export const Router = () => {
 						/>
 						<Route path="/prodi" element={<Prodi />} />
 						<Route path="/majors" element={<Major />} />
+						<Route path="/users" element={<User />} />
 						<Route
 							path="/monitoring/years/:yearID"
 							element={<Monitoring />}
@@ -177,7 +179,7 @@ export const Router = () => {
 					<Route path="/logout" element={<Logout />} />
 				</Route>
 				<Route element={<RequireLogout />}>
-					<Route path="/login" element={<Login />} />
+					<Route index path="/login" element={<Login />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

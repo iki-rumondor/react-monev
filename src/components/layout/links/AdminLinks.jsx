@@ -9,6 +9,9 @@ export const AdminLinks = () => {
 				Dashboard
 			</Sidebar.Link>
 			<Sidebar.HeaderLink>Master</Sidebar.HeaderLink>
+			<Sidebar.Link path={"/users"} icon={"fa-user"}>
+				Pengguna
+			</Sidebar.Link>
 			<Sidebar.Link path={"/majors"} icon={"fa-user"}>
 				Jurusan
 			</Sidebar.Link>
@@ -18,12 +21,12 @@ export const AdminLinks = () => {
 			<Sidebar.Link path={"/academic-years"} icon={"fa-user"}>
 				Tahun Ajaran
 			</Sidebar.Link>
-			<Sidebar.HeaderLink>Proses</Sidebar.HeaderLink>
+			<Sidebar.HeaderLink>Monev</Sidebar.HeaderLink>
 			<Sidebar.Link path={"/monitoring"} icon={"fa-user"}>
 				Monitoring
 			</Sidebar.Link>
 			<Sidebar.Link path={"/monev/data"} icon={"fa-user"}>
-				Data Monev
+				Hasil Monev
 			</Sidebar.Link>
 		</>
 	);

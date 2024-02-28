@@ -1,41 +1,38 @@
 import React, { useEffect, useState } from "react";
-import DashboardLayout from "../DashboardLayout";
-import useLoading from "../../hooks/useLoading";
 import { Dropdown, Table } from "react-bootstrap";
+import DashboardLayout from "../../DashboardLayout";
 import toast from "react-hot-toast";
-import { fetchData } from "../../../services/api";
-import Create from "./Create";
-import Delete from "./Delete";
-import Edit from "./Edit";
-import Detail from "./Detail";
+import useLoading from "../../../hooks/useLoading";
 
-export default function AcademicYear() {
-	const { isLoading } = useLoading();
-	const [values, setValues] = useState(null);
+export default function User() {
+	const { isSuccess, setIsLoading } = useLoading();
+	const [values, setValues] = useState();
 
-	const loadHandler = async () => {
+	const handleLoad = async () => {
 		try {
-			const res = await fetchData("academic-years");
+			setIsLoading(true);
+			const res = await fetchAPI(`/api/users`);
 			setValues(res.data);
 		} catch (error) {
-			toast.error(error.message);
+			toast.error(error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	useEffect(() => {
-		loadHandler();
-	}, [isLoading]);
+		handleLoad();
+	}, [isSuccess]);
 
 	return (
 		<>
-			<DashboardLayout header={"Tahun Ajaran"}>
-				<Create />
+			<DashboardLayout header={"Manajemen User"}>
 				<Table>
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>Semester</th>
-							<th>Tahun</th>
+							<th>Username</th>
+							<th>Role</th>
 							<th>Aksi</th>
 						</tr>
 					</thead>
@@ -44,8 +41,8 @@ export default function AcademicYear() {
 							values.map((item, idx) => (
 								<tr key={idx}>
 									<td>{idx + 1}</td>
-									<td>{item.semester}</td>
-									<td>{item.year}</td>
+									<td>{item.username}</td>
+									<td>{item.role.name}</td>
 									<td>
 										<Dropdown>
 											<Dropdown.Toggle
@@ -59,7 +56,10 @@ export default function AcademicYear() {
 											<Dropdown.Menu>
 												<Edit uuid={item.uuid} />
 												<Delete uuid={item.uuid} />
-												<Detail uuid={item.uuid} />
+												<Open
+													uuid={item.uuid}
+													value={item.open}
+												/>
 											</Dropdown.Menu>
 										</Dropdown>
 									</td>

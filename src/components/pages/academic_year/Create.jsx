@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, FormControl, InputGroup, Modal } from "react-bootstrap";
 import { postData } from "../../../services/api";
 import toast from "react-hot-toast";
 import useLoading from "../../hooks/useLoading";
+import { StislaInput } from "../../layout/form/StislaInput";
 
 export default function Create() {
 	const { setIsLoading, setIsSuccess } = useLoading();
@@ -10,7 +11,16 @@ export default function Create() {
 	const defaultValue = {
 		semester: "",
 		year: "",
+		first_date: "",
+		first_days: "",
+		middle_date: "",
+		middle_days: "",
+		middle_last_date: "",
+		middle_last_days: "",
+		last_date: "",
+		last_days: "",
 	};
+
 	const [values, setValues] = useState(defaultValue);
 
 	const handleChange = (e) => {
@@ -18,7 +28,9 @@ export default function Create() {
 	};
 
 	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const handleShow = () => {
+		setShow(true);
+	};
 
 	const postHandler = async () => {
 		handleClose();
@@ -77,6 +89,115 @@ export default function Create() {
 							<option>Ganjil</option>
 						</Form.Control>
 					</Form.Group>
+					<div className="row ">
+						<div className="col-sm-6">
+							<Form.Group className="mb-3" controlId="first_date">
+								<Form.Label>Monev Awal Semester</Form.Label>
+								<Form.Control
+									value={values.first_date}
+									name="first_date"
+									type="date"
+									onChange={handleChange}
+								/>
+							</Form.Group>
+						</div>
+						<div className="col-sm-6">
+							<Form.Group className="mb-3">
+								<Form.Label>Waktu Pelaksanaan</Form.Label>
+								<StislaInput
+									name="first_days"
+									type="number"
+									end="Hari"
+									value={values.first_days}
+									onChange={handleChange}
+								/>
+							</Form.Group>
+						</div>
+					</div>
+					<div className="row ">
+						<div className="col-sm-6">
+							<Form.Group
+								className="mb-3"
+								controlId="middle_date"
+							>
+								<Form.Label>Monev Tengah Semester</Form.Label>
+								<Form.Control
+									value={values.middle_date}
+									name="middle_date"
+									type="date"
+									onChange={handleChange}
+								/>
+							</Form.Group>
+						</div>
+						<div className="col-sm-6">
+							<Form.Group className="mb-3">
+								<Form.Label>Waktu Pelaksanaan</Form.Label>
+								<StislaInput
+									name="middle_days"
+									type="number"
+									end="Hari"
+									value={values.middle_days}
+									onChange={handleChange}
+								/>
+							</Form.Group>
+						</div>
+					</div>
+					<div className="row ">
+						<div className="col-sm-6">
+							<Form.Group
+								className="mb-3"
+								controlId="middle_last_date"
+							>
+								<Form.Label>Monev Sebelum UAS</Form.Label>
+								<Form.Control
+									value={values.middle_last_date}
+									name="middle_last_date"
+									type="date"
+									onChange={handleChange}
+								/>
+							</Form.Group>
+						</div>
+						<div className="col-sm-6">
+							<Form.Group className="mb-3">
+								<Form.Label>Waktu Pelaksanaan</Form.Label>
+								<StislaInput
+									name="middle_last_days"
+									type="number"
+									end="Hari"
+									value={values.middle_last_days}
+									onChange={handleChange}
+								/>
+							</Form.Group>
+						</div>
+					</div>
+					<div className="row ">
+						<div className="col-sm-6">
+							<Form.Group
+								className="mb-3"
+								controlId="last_date"
+							>
+								<Form.Label>Monev Setelah UAS</Form.Label>
+								<Form.Control
+									value={values.last_date}
+									name="last_date"
+									type="date"
+									onChange={handleChange}
+								/>
+							</Form.Group>
+						</div>
+						<div className="col-sm-6">
+							<Form.Group className="mb-3">
+								<Form.Label>Waktu Pelaksanaan</Form.Label>
+								<StislaInput
+									name="last_days"
+									type="number"
+									end="Hari"
+									value={values.last_days}
+									onChange={handleChange}
+								/>
+							</Form.Group>
+						</div>
+					</div>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>

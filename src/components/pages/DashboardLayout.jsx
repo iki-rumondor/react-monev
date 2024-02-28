@@ -4,8 +4,6 @@ import Sidebar from "../layout/Sidebar";
 import { getUserRole } from "../../services/utils";
 import { ProdiLinks } from "../layout/links/ProdiLinks";
 import { AdminLinks } from "../layout/links/AdminLinks";
-import '/src/assets/js/stisla.js';
-import '/src/assets/js/scripts.js';
 
 export default function DashboardLayout({
 	header,
