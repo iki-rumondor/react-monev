@@ -1,12 +1,19 @@
 import React from "react";
 import { Col } from "react-bootstrap";
 
-export const YearCard = ({ name, link, status }) => {
+export const YearCard = ({ name, link, open, status, head }) => {
 	let color = "secondary";
-	let statusName = "Ditutup";
-	if (status) {
+
+	const statusName = [
+		"Ditutup",
+		"Monev Awal Semester",
+		"Monev Tengah Semester",
+		"Monev Sebelum UAS",
+		"Monev Setelah UAS",
+	]
+
+	if (open) {
 		color = "primary";
-		statusName = "Dibuka";
 	}
 
 	return (
@@ -21,9 +28,17 @@ export const YearCard = ({ name, link, status }) => {
 					</div>
 				</div>
 				<div className="card-body">
-					<div>
-						Status: <strong>{statusName}</strong>
-					</div>
+					{head ? (
+						<div>
+							<span>Status : </span>
+							<strong>{status}</strong>
+						</div>
+					) : (
+						<div>
+							<span>Waktu Pelaksanaan : </span>
+							<strong>{status}</strong>
+						</div>
+					)}
 				</div>
 			</div>
 		</Col>

@@ -6,7 +6,12 @@ import { RequireAuth } from "./components/utils/RequireAuth";
 import { RequireLogout } from "./components/utils/RequireLogout";
 import Logout from "./components/pages/auth/Logout";
 import Subject from "./components/pages/subject/Index";
-import { IsAdmin, IsProdi, StepAccept } from "./components/utils/Authorization";
+import {
+	IsAdmin,
+	IsHead,
+	IsProdi,
+	StepAccept,
+} from "./components/utils/Authorization";
 import Major from "./components/pages/majors/Index";
 import Laboratory from "./components/pages/laboratory/Index";
 import AcademicYear from "./components/pages/academic_year/Index";
@@ -41,6 +46,7 @@ import { ProdiDashboard } from "./components/pages/dashboard/Prodi";
 import MonevData from "./components/pages/admin/monev_data/Index";
 import { Modul } from "./components/pages/modul/Index";
 import User from "./components/pages/admin/user/Index";
+import { HeadDashboard } from "./components/pages/dashboard/Head";
 
 export const Router = () => {
 	return (
@@ -50,27 +56,15 @@ export const Router = () => {
 					<Route element={<IsAdmin />}>
 						<Route
 							path="/home/admin"
-							element={<AdminDashboard/>}
+							element={<AdminDashboard />}
 						/>
 						<Route path="/prodi" element={<Prodi />} />
 						<Route path="/majors" element={<Major />} />
-						<Route path="/users" element={<User />} />
-						<Route
-							path="/monitoring/years/:yearID"
-							element={<Monitoring />}
-						/>
-						<Route
-							path="/monitoring"
-							element={<YearMonitoring />}
-						/>
-						<Route
-							path="/monev/data"
-							element={<MonevData />}
-						/>
 						<Route
 							path="/academic-years"
 							element={<AcademicYear />}
 						/>
+						{/* <Route path="/users" element={<User />} /> */}
 					</Route>
 					<Route element={<IsProdi />}>
 						<Route
@@ -81,99 +75,94 @@ export const Router = () => {
 						<Route path="/lab" element={<Laboratory />} />
 						<Route path="/fasilitas" element={<Fasility />} />
 						<Route path="/teachers" element={<Teacher />} />
-						<Route element={<StepAccept stepRequire={"1"} />}>
-							<Route
-								path="/first-monev"
-								element={<FirstMonev />}
-							/>
-							<Route
-								path="/first-monev/years/:yearID"
-								element={<SubFirstMonev />}
-							/>
-							<Route
-								path="/rps/years/:yearID"
-								element={<SubRPS />}
-							/>
-							<Route
-								path="/facility-conditions/years/:yearID"
-								element={<SubFacilityCondition />}
-							/>
-							<Route
-								path="/tools/years/:yearID"
-								element={<Tools />}
-							/>
-							<Route
-								path="/modules/years/:yearID"
-								element={<Modul />}
-							/>
-							<Route
-								path="/skills/years/:yearID"
-								element={<Skill />}
-							/>
-						</Route>
-						<Route element={<StepAccept stepRequire={"2"} />}>
-							<Route
-								path="/middle-monev"
-								element={<MiddleMonev />}
-							/>
-							<Route
-								path="/middle-monev/years/:yearID"
-								element={<SubMiddleMonev />}
-							/>
-							<Route
-								path="/middle-monev/teacher-attendences/years/:yearID"
-								element={<MiddleTeacherAttendences />}
-							/>
-							<Route
-								path="/middle-monev/student-attendences/years/:yearID"
-								element={<MiddleStudentAttendences />}
-							/>
-							<Route
-								path="/middle-monev/plans/years/:yearID"
-								element={<MiddlePlans />}
-							/>
-						</Route>
-						<Route element={<StepAccept stepRequire={"3"} />}>
-							<Route
-								path="/middle-last-monev"
-								element={<MiddleLastMonev />}
-							/>
-							<Route
-								path="/middle-last-monev/years/:yearID"
-								element={<SubMiddleLastMonev />}
-							/>
-							<Route
-								path="/middle-last-monev/teacher-attendences/years/:yearID"
-								element={<MiddleLastTeacherAttendences />}
-							/>
-							<Route
-								path="/middle-last-monev/student-attendences/years/:yearID"
-								element={<MiddleLastStudentAttendences />}
-							/>
-							<Route
-								path="/middle-last-monev/plans/years/:yearID"
-								element={<MiddleLastPlans />}
-							/>
-						</Route>
-						<Route element={<StepAccept stepRequire={"4"} />}>
-							<Route path="/last-monev" element={<LastMonev />} />
-							<Route
-								path="/last-monev/years/:yearID"
-								element={<SubLastMonev />}
-							/>
-							<Route
-								path="/last-monev/student-passed/years/:yearID"
-								element={<StudentPassed />}
-							/>
-							<Route
-								path="/last-monev/student-final/years/:yearID"
-								element={<StudentFinal />}
-							/>
-							<Route
-								path="/last-monev/grade/years/:yearID"
-								element={<SubjectGrade />}
-							/>
-						</Route>
+						<Route path="/first-monev" element={<FirstMonev />} />
+						<Route
+							path="/first-monev/years/:yearID"
+							element={<SubFirstMonev />}
+						/>
+						<Route path="/rps/years/:yearID" element={<SubRPS />} />
+						<Route
+							path="/facility-conditions/years/:yearID"
+							element={<SubFacilityCondition />}
+						/>
+						<Route
+							path="/tools/years/:yearID"
+							element={<Tools />}
+						/>
+						<Route
+							path="/modules/years/:yearID"
+							element={<Modul />}
+						/>
+						<Route
+							path="/skills/years/:yearID"
+							element={<Skill />}
+						/>
+						<Route path="/middle-monev" element={<MiddleMonev />} />
+						<Route
+							path="/middle-monev/years/:yearID"
+							element={<SubMiddleMonev />}
+						/>
+						<Route
+							path="/middle-monev/teacher-attendences/years/:yearID"
+							element={<MiddleTeacherAttendences />}
+						/>
+						<Route
+							path="/middle-monev/student-attendences/years/:yearID"
+							element={<MiddleStudentAttendences />}
+						/>
+						<Route
+							path="/middle-monev/plans/years/:yearID"
+							element={<MiddlePlans />}
+						/>
+						<Route
+							path="/middle-last-monev"
+							element={<MiddleLastMonev />}
+						/>
+						<Route
+							path="/middle-last-monev/years/:yearID"
+							element={<SubMiddleLastMonev />}
+						/>
+						<Route
+							path="/middle-last-monev/teacher-attendences/years/:yearID"
+							element={<MiddleLastTeacherAttendences />}
+						/>
+						<Route
+							path="/middle-last-monev/student-attendences/years/:yearID"
+							element={<MiddleLastStudentAttendences />}
+						/>
+						<Route
+							path="/middle-last-monev/plans/years/:yearID"
+							element={<MiddleLastPlans />}
+						/>
+						<Route path="/last-monev" element={<LastMonev />} />
+						<Route
+							path="/last-monev/years/:yearID"
+							element={<SubLastMonev />}
+						/>
+						<Route
+							path="/last-monev/student-passed/years/:yearID"
+							element={<StudentPassed />}
+						/>
+						<Route
+							path="/last-monev/student-final/years/:yearID"
+							element={<StudentFinal />}
+						/>
+						<Route
+							path="/last-monev/grade/years/:yearID"
+							element={<SubjectGrade />}
+						/>
+					</Route>
+					<Route element={<IsHead />}>
+						<Route path="/home/head" element={<HeadDashboard />} />
+						<Route
+							path="/monitoring/years/:yearID"
+							element={<Monitoring />}
+						/>
+						<Route
+							path="/monitoring"
+							element={<YearMonitoring />}
+						/>
+						<Route path="/monev/data" element={<MonevData />} />
 					</Route>
 					<Route path="/home" element={<HomeController />}></Route>
 					<Route path="/logout" element={<Logout />} />

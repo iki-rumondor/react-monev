@@ -27,14 +27,14 @@ export const YearMonitoring = () => {
 	}, []);
 	return (
 		<>
-			<DashboardLayout header={"Monitoring Program Studi"}>
+			<DashboardLayout header={"Grafik Hasil Monitoring"}>
 				<Row>
 					{years &&
 						years.map((item, idx) => (
 							<YearCard
 								key={idx}
 								name={item.name}
-								status={item.open}
+								status={item.status}
 								link={`/monitoring/years/${item.uuid}`}
 							/>
 						))}

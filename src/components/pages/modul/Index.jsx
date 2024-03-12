@@ -45,7 +45,7 @@ export const Modul = () => {
 				breadcumb={breadcumb}
 				title={"Ketersediaan Modul praktikum"}
 			>
-				{year?.open && <Create academic_year_uuid={yearID} />}
+				{year?.status == "1" && <Create academic_year_uuid={yearID} />}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -55,7 +55,7 @@ export const Modul = () => {
 									<th>Mata Kuliah Praktikum</th>
 									<th>Status</th>
 									<th>Keterangan</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "1" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -76,7 +76,7 @@ export const Modul = () => {
 												)}
 											</td>
 											<td>{item.note}</td>
-											{year?.open && (
+											{year?.status == "1" && (
 												<td>
 													<DeleteModal
 														endpoint={`/api/practical-modules/${item.uuid}`}

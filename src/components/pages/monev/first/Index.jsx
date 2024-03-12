@@ -6,6 +6,7 @@ import DashboardLayout from "../../DashboardLayout";
 import { fetchAPI } from "../../../utils/Fetching";
 import useLoading from "../../../hooks/useLoading";
 import { YearCard } from "../../../layout/cards/YearCard";
+import { formatDateRange } from "../../../utils/Helpers";
 
 export default function FirstMonev() {
 	const { setIsLoading } = useLoading();
@@ -37,7 +38,8 @@ export default function FirstMonev() {
 								key={idx}
 								name={item.name}
 								link={`/first-monev/years/${item.uuid}`}
-								status={item.open}
+								open={item.status == "1"}
+								status={formatDateRange(item.first_range)}
 							/>
 						))}
 				</Row>

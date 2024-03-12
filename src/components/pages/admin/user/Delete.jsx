@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Dropdown, Form, Modal } from "react-bootstrap";
-import { fetchData, postData } from "../../../services/api";
 import toast from "react-hot-toast";
-import useLoading from "../../hooks/useLoading";
+import useLoading from "../../../hooks/useLoading";
 
-export default function DeleteProdi({uuid}) {
-	const {setIsLoading} = useLoading();
+export default function Delete({uuid}) {
+	const {setIsLoading, setIsSuccess} = useLoading();
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);

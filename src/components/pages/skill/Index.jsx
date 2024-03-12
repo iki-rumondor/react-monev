@@ -46,7 +46,7 @@ export default function Skill() {
 				breadcumb={breadcumb}
 				title={"Kesesuaian Kemampuan Dosen Dengan Mata Kuliah"}
 			>
-				{year?.open && <Create yearUuid={yearID} />}
+				{year?.status == "1" && <Create yearUuid={yearID} />}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -56,7 +56,7 @@ export default function Skill() {
 									<th>Nama Dosen</th>
 									<th>Mata Kuliah</th>
 									<th>Kemampuan</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "1" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -67,7 +67,7 @@ export default function Skill() {
 											<td>{item.teacher.name}</td>
 											<td>{item.subject.name}</td>
 											<td>{item.skill}</td>
-											{year?.open && (
+											{year?.status == "1" && (
 												<td>
 													<Dropdown>
 														<Dropdown.Toggle

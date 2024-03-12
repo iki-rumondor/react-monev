@@ -83,6 +83,28 @@ export const fetchAPI = async (endpoint) => {
 	}
 };
 
+export const fetchPdf = async (endpoint) => {
+	try {
+		const response = await axios({
+			method: "GET",
+			url: `${baseAPIUrl}${endpoint}`,
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+				"Content-Type": "application/pdf",
+			},
+			responseType: "blob",
+		});
+		const url = window.URL.createObjectURL(response.data);
+		window.open(url, "_blank");
+	} catch (error) {
+		if (error.response?.data?.message == undefined) {
+			throw error.message;
+		} else {
+			throw error.response?.data?.message ?? error?.message;
+		}
+	}
+};
+
 export const useGetData = (endpoint) => {
 	const { data, error, isLoading } = useSWR(endpoint, fetcher);
 	return {

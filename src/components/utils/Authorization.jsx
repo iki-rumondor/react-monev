@@ -37,6 +37,22 @@ export const IsProdi = () => {
 	return <Outlet />;
 };
 
+export const IsHead = () => {
+	const location = useLocation();
+
+	const role = getUserRole();
+	if (role != "HEAD") {
+		return (
+			<Navigate
+				to={"/home"}
+				state={{ path: location.pathname, error: "Forbidden Page" }}
+			/>
+		);
+	}
+
+	return <Outlet />;
+};
+
 export const StepAccept = ({ stepRequire }) => {
 	const { setIsLoading } = useLoading();
 	const [step, setStep] = useState("");
@@ -59,7 +75,7 @@ export const StepAccept = ({ stepRequire }) => {
 	useEffect(() => {
 		handleLoad();
 	}, []);
-	
+
 	if (step) {
 		if (step != stepRequire) {
 			window.location.href = "/home";

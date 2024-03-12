@@ -4,6 +4,7 @@ import useLoading from "../../hooks/useLoading";
 import toast from "react-hot-toast";
 import { postData } from "../../../services/api";
 import { redirect } from "react-router-dom";
+import moment from "moment";
 
 export default function LoginForm() {
 	const { setIsLoading } = useLoading();
@@ -17,6 +18,7 @@ export default function LoginForm() {
 			setIsLoading(true);
 			const res = await postData("signin", "POST", values);
 			sessionStorage.setItem("token", res.token);
+			sessionStorage.setItem("login_time", moment());
 			return window.location.href = "/home";
 		} catch (error) {
 			toast.error(error.message);

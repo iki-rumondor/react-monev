@@ -87,7 +87,7 @@ export default function MonevData() {
 
 	return (
 		<>
-			<DashboardLayout header={"Data Hasil Monev"}>
+			<DashboardLayout header={"Laporan Hasil Monitoring"}>
 				<Card>
 					<CardBody>
 						<Row>

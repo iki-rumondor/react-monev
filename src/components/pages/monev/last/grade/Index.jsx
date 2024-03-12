@@ -79,7 +79,7 @@ export default function SubjectGrade() {
 									<th>Mata Kuliah</th>
 									<th>Penanggung Jawab</th>
 									<th>Status</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "4" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -96,7 +96,7 @@ export default function SubjectGrade() {
 															Tepat Waktu
 														</span>
 													</td>
-													{year?.open && (
+													{year?.status == "4" && (
 														<td>
 															<Button
 																value={false}
@@ -121,7 +121,7 @@ export default function SubjectGrade() {
 															Tidak Tepat Waktu
 														</span>
 													</td>
-													{year?.open && (
+													{year?.status == "4" && (
 														<td>
 															<Button
 																variant="success"

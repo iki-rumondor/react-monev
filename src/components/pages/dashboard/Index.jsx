@@ -1,6 +1,4 @@
-import { Navigate, redirect, useNavigate } from "react-router-dom";
 import { getUserRole } from "../../../services/utils";
-import { useEffect } from "react";
 
 export const HomeController = () => {
 	const role = getUserRole();
@@ -8,6 +6,12 @@ export const HomeController = () => {
 		window.location.href = "/home/admin";
 		return
 	}
+
+	if (role === "HEAD") {
+		window.location.href = "/home/head";
+		return
+	}
+
 	window.location.href = "/home/department";
 	return;
 };

@@ -47,7 +47,7 @@ export default function MiddleTeacherAttendences() {
 				breadcumb={breadcumb}
 				title={"Persentase Kehadiran Dosen Dalam Mengajar"}
 			>
-				{year?.open && <Create yearUuid={yearID} />}
+				{year?.status == "2" && <Create yearUuid={yearID} />}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -57,7 +57,7 @@ export default function MiddleTeacherAttendences() {
 									<th>Mata Kuliah</th>
 									<th>Penanggung Jawab</th>
 									<th>Persentase Kehadiran</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "2" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -68,7 +68,7 @@ export default function MiddleTeacherAttendences() {
 											<td>{item.subject.name}</td>
 											<td>{item.teacher.name}</td>
 											<td>{item.middle}%</td>
-											{year?.open && (
+											{year?.status == "2" && (
 												<td>
 													<DeleteModal
 														endpoint={`/api/middle-monev/teacher-attendences/${item.uuid}`}

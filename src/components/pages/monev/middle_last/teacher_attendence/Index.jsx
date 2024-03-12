@@ -54,7 +54,7 @@ export default function MiddleLastTeacherAttendences() {
 									<th>Mata Kuliah</th>
 									<th>Persentase Tengah Semester</th>
 									<th>Persentase Akhir Semester</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "3" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -65,7 +65,7 @@ export default function MiddleLastTeacherAttendences() {
 											<td>{item.subject.name}</td>
 											<td>{item.middle}%</td>
 											<td>{item.last}%</td>
-											{year?.open && (
+											{year?.status == "3" && (
 												<td>
 													<Update uuid={item.uuid} />
 												</td>

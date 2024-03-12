@@ -5,6 +5,7 @@ import DashboardLayout from "../../DashboardLayout";
 import { fetchAPI } from "../../../utils/Fetching";
 import useLoading from "../../../hooks/useLoading";
 import { YearCard } from "../../../layout/cards/YearCard";
+import { formatDateRange } from "../../../utils/Helpers";
 
 export default function MiddleMonev() {
 	const { setIsLoading } = useLoading();
@@ -35,8 +36,9 @@ export default function MiddleMonev() {
 							<YearCard
 								key={idx}
 								name={item.name}
-								status={item.open}
 								link={`/middle-monev/years/${item.uuid}`}
+								open={item.status == "2"}
+								status={formatDateRange(item.middle_range)}
 							/>
 						))}
 				</Row>

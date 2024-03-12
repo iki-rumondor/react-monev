@@ -3,6 +3,9 @@ import { Dropdown, Table } from "react-bootstrap";
 import DashboardLayout from "../../DashboardLayout";
 import toast from "react-hot-toast";
 import useLoading from "../../../hooks/useLoading";
+import { fetchAPI } from "../../../utils/Fetching";
+import Create from "./Create";
+import { DeleteModal } from "../../../layout/modals/DeleteModal";
 
 export default function User() {
 	const { isSuccess, setIsLoading } = useLoading();
@@ -27,10 +30,10 @@ export default function User() {
 	return (
 		<>
 			<DashboardLayout header={"Manajemen User"}>
+				<Create />
 				<Table>
 					<thead>
 						<tr>
-							<th>No</th>
 							<th>Username</th>
 							<th>Role</th>
 							<th>Aksi</th>
@@ -38,33 +41,22 @@ export default function User() {
 					</thead>
 					<tbody>
 						{values &&
-							values.map((item, idx) => (
-								<tr key={idx}>
-									<td>{idx + 1}</td>
-									<td>{item.username}</td>
-									<td>{item.role.name}</td>
-									<td>
-										<Dropdown>
-											<Dropdown.Toggle
-												className="btn-sm"
-												variant="danger"
-												id="dropdown-basic"
-											>
-												Pilih
-											</Dropdown.Toggle>
-
-											<Dropdown.Menu>
-												<Edit uuid={item.uuid} />
-												<Delete uuid={item.uuid} />
-												<Open
-													uuid={item.uuid}
-													value={item.open}
-												/>
-											</Dropdown.Menu>
-										</Dropdown>
-									</td>
-								</tr>
-							))}
+							values.map((item, idx) => {
+								if (item.role == "ADMIN") {
+									return;
+								}
+								return (
+									<tr key={idx}>
+										<td>{item.username}</td>
+										<td>{item.role}</td>
+										<td>
+											<DeleteModal
+												endpoint={`/api/users/${item.uuid}`}
+											/>
+										</td>
+									</tr>
+								);
+							})}
 					</tbody>
 				</Table>
 			</DashboardLayout>

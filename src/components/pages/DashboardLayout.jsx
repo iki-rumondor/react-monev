@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
 import { getUserRole } from "../../services/utils";
 import { ProdiLinks } from "../layout/links/ProdiLinks";
 import { AdminLinks } from "../layout/links/AdminLinks";
+import { HeadLinks } from "../layout/links/HeadLinks";
 
 export default function DashboardLayout({
 	header,
@@ -11,13 +12,27 @@ export default function DashboardLayout({
 	title,
 	children,
 }) {
+	const [links, setLinks] = useState();
 	const role = getUserRole();
+
+	useEffect(() => {
+		switch (role) {
+			case "DEPARTMENT":
+				setLinks(<ProdiLinks />)
+				break;
+			case "HEAD":
+				setLinks(<HeadLinks />)
+				break;
+			default:
+				setLinks(<AdminLinks />)
+		}
+	}, []);
 
 	return (
 		<>
 			<Navbar />
-			<Sidebar title={"i-Monev"} subtitle={"iM"}>
-				{role == "DEPARTMENT" ? <ProdiLinks /> : <AdminLinks />}
+			<Sidebar title={"Simpel"} subtitle={"SP"}>
+				{links}
 			</Sidebar>
 			<div className="main-content">
 				<section className="section">

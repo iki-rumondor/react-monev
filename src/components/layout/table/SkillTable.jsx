@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import useLoading from "../../hooks/useLoading";
 import toast from "react-hot-toast";
-import { fetchAPI } from "../../utils/Fetching";
+import { fetchAPI, fetchPdf } from "../../utils/Fetching";
 
 export const SkillTable = ({ departmentID, yearID }) => {
 	const { setIsLoading } = useLoading();
@@ -21,12 +21,31 @@ export const SkillTable = ({ departmentID, yearID }) => {
 		}
 	};
 
+	const handlePrint = async () => {
+		try {
+			setIsLoading(true);
+			const res = await fetchPdf(
+				`/api/report/skills/departments/${departmentID}/years/${yearID}`
+			);
+		} catch (error) {
+			toast.error(error);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
 	useEffect(() => {
 		handleLoad();
 	}, []);
 
 	return (
 		<>
+			{values && (
+				<Button className="mb-3" onClick={handlePrint}>
+					<i className="fas fa-print"></i>{" "}
+					<span className="ml-2">Cetak</span>
+				</Button>
+			)}
 			<Table className="table-bordered">
 				<thead>
 					<tr>

@@ -72,7 +72,7 @@ export default function MiddleLastPlans() {
 									<th>Mata Kuliah</th>
 									<th>Status Tengah Semester</th>
 									<th>Status Akhir Semester</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "3" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -99,7 +99,7 @@ export default function MiddleLastPlans() {
 															Sesuai
 														</span>
 													</td>
-													{year?.open && (
+													{year?.status == "3" && (
 														<td>
 															<Button
 																value={false}
@@ -124,7 +124,7 @@ export default function MiddleLastPlans() {
 															Tidak Sesuai
 														</span>
 													</td>
-													{year?.open && (
+													{year?.status == "3" && (
 														<td>
 															<Button
 																variant="success"

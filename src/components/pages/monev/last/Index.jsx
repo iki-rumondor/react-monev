@@ -5,6 +5,7 @@ import DashboardLayout from "../../DashboardLayout";
 import { fetchAPI } from "../../../utils/Fetching";
 import useLoading from "../../../hooks/useLoading";
 import { YearCard } from "../../../layout/cards/YearCard";
+import { formatDateRange } from "../../../utils/Helpers";
 
 export default function LastMonev() {
 	const { setIsLoading } = useLoading();
@@ -35,8 +36,9 @@ export default function LastMonev() {
 							<YearCard
 								key={idx}
 								name={item.name}
-								status={item.open}
 								link={`/last-monev/years/${item.uuid}`}
+								open={item.status == "4"}
+								status={formatDateRange(item.last_range)}
 							/>
 						))}
 				</Row>

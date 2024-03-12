@@ -73,7 +73,7 @@ export default function MiddlePlans() {
 									<th>No</th>
 									<th>Mata Kuliah</th>
 									<th>Status</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "2" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -89,7 +89,7 @@ export default function MiddlePlans() {
 															Sesuai
 														</span>
 													</td>
-													{year?.open && (
+													{year?.status == "2" && (
 														<td>
 															<Button
 																value={false}
@@ -114,7 +114,7 @@ export default function MiddlePlans() {
 															Tidak Sesuai
 														</span>
 													</td>
-													{year?.open && (
+													{year?.status == "2" && (
 														<td>
 															<Button
 																variant="success"

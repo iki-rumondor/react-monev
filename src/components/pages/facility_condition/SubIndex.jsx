@@ -49,7 +49,7 @@ export const SubFacilityCondition = () => {
 				breadcumb={breadcumb}
 				title={"Fasilitas, Sarana, dan Prasarana"}
 			>
-				{year?.open && <Create academic_year={yearID} />}
+				{year?.status == "1" && <Create academic_year={yearID} />}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -60,7 +60,7 @@ export const SubFacilityCondition = () => {
 									<th>Jumlah</th>
 									<th>Tidak Berfungsi</th>
 									<th>Catatan</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "1" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -74,7 +74,7 @@ export const SubFacilityCondition = () => {
 												<span className="badge badge-warning">{`${item.deactive} ${item.unit}`}</span>
 											</td>
 											<td>{item.note}</td>
-											{year?.open && (
+											{year?.status == "1" && (
 												<td>
 													<Dropdown>
 														<Dropdown.Toggle

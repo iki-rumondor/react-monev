@@ -48,7 +48,7 @@ export default function MiddleStudentAttendences() {
 				breadcumb={breadcumb}
 				title={"Persentase Kehadiran Mahasiswa"}
 			>
-				{year?.open && <Create yearUuid={yearID} />}
+				{year?.status == "2" && <Create yearUuid={yearID} />}
 				<Alert variant="light">
 					Persentase Kehadiran = Persentase Kehadiran Mahasiswa Yang
 					Lebih Dari 75%
@@ -62,7 +62,7 @@ export default function MiddleStudentAttendences() {
 									<th>Mata Kuliah</th>
 									<th>Jumlah Mahasiswa</th>
 									<th>Persentase Kehadiran</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "2" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -80,7 +80,7 @@ export default function MiddleStudentAttendences() {
 												)}
 												%
 											</td>
-											{year?.open && (
+											{year?.status == "2" && (
 												<td>
 													<DeleteModal
 														endpoint={`/api/middle-monev/student-attendences/${item.uuid}`}

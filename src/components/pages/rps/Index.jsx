@@ -4,7 +4,6 @@ import useLoading from "../../hooks/useLoading";
 import { Card, CardBody, CardHeader, Row, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
-import { sprintf } from "sprintf-js";
 import { fetchAPI } from "../../utils/Fetching";
 import { DeleteModal } from "../../layout/modals/DeleteModal";
 import Create from "./Create";
@@ -43,7 +42,7 @@ export const SubRPS = () => {
 				breadcumb={breadcumb}
 				title={"Ketersediaan Rencana Pembelajaran Semester"}
 			>
-				{year?.open && <Create yearUuid={yearID} />}
+				{year?.status == "1" && <Create yearUuid={yearID} />}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -53,7 +52,7 @@ export const SubRPS = () => {
 									<th>Mata Kuliah</th>
 									<th>Status</th>
 									<th>Keterangan</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "1" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -74,7 +73,7 @@ export const SubRPS = () => {
 												)}
 											</td>
 											<td>{item.note}</td>
-											{year?.open && (
+											{year?.status == "1" && (
 												<td>
 													<DeleteModal
 														endpoint={`/api/academic-plans/${item.uuid}`}

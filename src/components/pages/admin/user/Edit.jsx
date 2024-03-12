@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
-import { fetchData, postData } from "../../../services/api";
+import { Button, Dropdown, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
-import useLoading from "../../hooks/useLoading";
+import useLoading from "../../../hooks/useLoading";
 
-export default function CreateProdi() {
-	const {setIsLoading} = useLoading();
+export default function Edit({ uuid }) {
+	const {setIsLoading, setIsSuccess} = useLoading();
 	const [show, setShow] = useState(false);
-	const [jurusan, setJurusan] = useState(null);
+	const [jurusan, setJurusan] = useState([]);
 	const [values, setValues] = useState({
 		name: "",
 		head: "",
@@ -15,9 +14,13 @@ export default function CreateProdi() {
 	});
 
 	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const handleShow = () => {
+		setShow(true);
+		loadJurusan();
+		loadProdi();
+	};
 
-	const loadHandler = async () => {
+	const loadJurusan = async () => {
 		try {
 			const res = await fetchData("majors");
 			setJurusan(res.data);
@@ -26,28 +29,35 @@ export default function CreateProdi() {
 		}
 	};
 
-	const postHandler = async () => {
-		handleClose()
+	const loadProdi = async () => {
 		try {
-			setIsLoading(true)
-			const res = await postData("departments", "POST", values);
-			toast.success(res.message)
+			const res = await fetchData("departments/" + uuid);
+			setValues({
+				name: res.data.name,
+				head: res.data.head,
+				major_uuid: res.data.major.uuid,
+			});
 		} catch (error) {
 			toast.error(error.message);
-		}finally{
-			setIsLoading(false)
 		}
-	}
+	};
 
-	useEffect(() => {
-		loadHandler();
-	}, []);
+	const postHandler = async () => {
+		handleClose();
+		try {
+			setIsLoading(true);
+			const res = await postData("departments/" + uuid, "PUT", values);
+			toast.success(res.message);
+		} catch (error) {
+			toast.error(error.message);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
 	return (
 		<>
-			<Button className="mb-3" variant="primary" onClick={handleShow}>
-				Tambah Program Studi
-			</Button>
+			<Dropdown.Item className="text-warning" href="#" onClick={handleShow}>Edit</Dropdown.Item>
 
 			<Modal
 				show={show}
@@ -56,7 +66,7 @@ export default function CreateProdi() {
 				keyboard={false}
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Tambah Program Studi</Modal.Title>
+					<Modal.Title>Edit Program Studi</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form.Group className="mb-3" controlId="name">
@@ -100,7 +110,7 @@ export default function CreateProdi() {
 							<option disabled value={""}>
 								Pilih Jurusan
 							</option>
-							{jurusan &&
+							{jurusan.length > 0 &&
 								jurusan.map((item, idx) => (
 									<option value={item.uuid} key={idx}>
 										{item.name}
@@ -114,7 +124,7 @@ export default function CreateProdi() {
 						Close
 					</Button>
 					<Button variant="primary" onClick={postHandler}>
-						Tambah
+						Ubah
 					</Button>
 				</Modal.Footer>
 			</Modal>

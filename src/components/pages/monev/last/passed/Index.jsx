@@ -55,7 +55,7 @@ export default function StudentPassed() {
 									<th>Mata Kuliah</th>
 									<th>Jumlah Mahasiswa</th>
 									<th>Persentase Kelulusan</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "4" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -73,7 +73,7 @@ export default function StudentPassed() {
 												)}
 												%
 											</td>
-											{year?.open && (
+											{year?.status == "4" && (
 												<td>
 													<Update
 														uuid={item.uuid}

@@ -44,7 +44,7 @@ export default function Create({ academic_year_uuid }) {
 	const loadHandler = async () => {
 		try {
 			const s_res = await fetchAPI(
-				`/api/subjects/tables/practical_tools/years/${academic_year_uuid}`
+				`/api/subjects`
 			);
 			setSubjects(s_res?.data);
 		} catch (error) {

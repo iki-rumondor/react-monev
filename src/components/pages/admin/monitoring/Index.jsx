@@ -24,7 +24,7 @@ export default function Monitoring() {
 
 	const breadcumb = [
 		{
-			name: "Monitoring Program Studi",
+			name: "Tahun Ajaran",
 			link: `/monitoring`,
 		},
 	];
@@ -99,9 +99,9 @@ export default function Monitoring() {
 	return (
 		<>
 			<DashboardLayout
-				header={year?.name}
+				title={year?.name}
 				breadcumb={breadcumb}
-				title={year?.open ? "Dibuka" : "Ditutup"}
+				header={"Grafik Hasil Monitoring"}
 			>
 				<Card>
 					<CardBody>
@@ -120,9 +120,6 @@ export default function Monitoring() {
 								))}
 							</Form.Control>
 						</Form.Group>
-						{year?.open && (
-							<Button onClick={handleShow}>Ubah</Button>
-						)}
 					</CardBody>
 				</Card>
 				<Card>
@@ -150,7 +147,7 @@ export default function Monitoring() {
 						{depSelected !== "" && (
 							<div className="p-lg-4">
 								<Content
-									step={year.open ? step : values.step}
+									step={values.step}
 									departmentID={depSelected}
 									yearID={yearID}
 								/>

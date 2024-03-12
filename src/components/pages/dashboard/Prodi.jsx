@@ -7,6 +7,7 @@ import { getUserUuid } from "../../../services/utils";
 import useLoading from "../../hooks/useLoading";
 import toast from "react-hot-toast";
 import { fetchAPI } from "../../utils/Fetching";
+import moment from "moment";
 
 export const ProdiDashboard = () => {
 	const { setIsLoading } = useLoading();
@@ -44,15 +45,15 @@ export const ProdiDashboard = () => {
 			>
 				<div className="row">
 					<CardDashboard
-						title={"Status"}
-						value={"Monev Awal Semester"}
-						icon="fa-book"
+						title={"Tanggal"}
+						value={moment().format('DD MMM YYYY')}
+						icon="fa-calendar-alt"
 						color="success"
 					/>
 					<CardDashboard
 						title={"Koordinator Program Studi"}
 						value={values?.head}
-						icon="fa-users"
+						icon="fa-user"
 						color="info"
 					/>
 					<CardDashboard

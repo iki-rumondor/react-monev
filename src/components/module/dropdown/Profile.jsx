@@ -1,7 +1,9 @@
 import classNames from "classnames";
+import moment from "moment";
 import React from "react";
 
-export default function ProfileDropdown({ children, username = "Ilham" }) {
+export default function ProfileDropdown({ children, username = "User" }) {
+	const loginTime = sessionStorage.getItem("login_time")
 	return (
 		<div>
 			<li className="dropdown">
@@ -20,7 +22,7 @@ export default function ProfileDropdown({ children, username = "Ilham" }) {
 					</div>
 				</a>
 				<div className="dropdown-menu dropdown-menu-right">
-					<div className="dropdown-title">Logged in 5 min ago</div>
+					<div className="dropdown-title">LOGIN {moment(loginTime).fromNow()}</div>
 					{children}
 					<div className="dropdown-divider"></div>
 					<a

@@ -43,7 +43,7 @@ export const Tools = () => {
 				breadcumb={breadcumb}
 				title={"Ketersediaan Alat praktikum"}
 			>
-				{year?.open && <Create academic_year_uuid={yearID} />}
+				{year?.status == "1" && <Create academic_year_uuid={yearID} />}
 				<Card>
 					<CardBody>
 						<Table className="table-bordered">
@@ -54,7 +54,7 @@ export const Tools = () => {
 									<th>Status</th>
 									<th>Kondisi</th>
 									<th>Catatan</th>
-									{year?.open && <th>Aksi</th>}
+									{year?.status == "1" && <th>Aksi</th>}
 								</tr>
 							</thead>
 							<tbody>
@@ -76,7 +76,7 @@ export const Tools = () => {
 											</td>
 											<td>{item.condition}</td>
 											<td>{item.note}</td>
-											{year?.open && (
+											{year?.status == "1" && (
 												<td>
 													<DeleteModal
 														endpoint={`/api/practical-tools/${item.uuid}`}
