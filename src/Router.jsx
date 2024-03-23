@@ -47,6 +47,7 @@ import MonevData from "./components/pages/admin/monev_data/Index";
 import { Modul } from "./components/pages/modul/Index";
 import User from "./components/pages/admin/user/Index";
 import { HeadDashboard } from "./components/pages/dashboard/Head";
+import LandingPage from "./components/pages/landing/Index";
 
 export const Router = () => {
 	return (
@@ -168,8 +169,9 @@ export const Router = () => {
 					<Route path="/logout" element={<Logout />} />
 				</Route>
 				<Route element={<RequireLogout />}>
-					<Route index path="/login" element={<Login />} />
+					<Route path="/login" element={<Login />} />
 				</Route>
+				<Route path="/" Component={LandingPage}/>
 			</Routes>
 		</BrowserRouter>
 	);
