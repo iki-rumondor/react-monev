@@ -14,7 +14,5 @@ export const ChartModel = ({ categories, series, type }) => {
 		colors: ['#2F539B', '#33FFB7']
 	};
 
-	
-
 	return <Chart options={options} series={series} type={type} />;
 };

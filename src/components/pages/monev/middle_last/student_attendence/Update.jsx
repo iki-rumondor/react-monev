@@ -61,15 +61,15 @@ export default function Update({ uuid }) {
 					<Modal.Title>Lengkapi Data</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form.Group className="mb-3" controlId="middle">
+					<Form.Group className="mb-3" controlId="last">
 						<Form.Label>
 							Jumlah Mahasiswa Dengan Persentase Kehadiran Lebih
 							Dari 75%
 						</Form.Label>
 						<Form.Control
 							type="number"
-							name="middle"
-							value={values?.middle}
+							name="last"
+							value={values?.last}
 							onChange={handleChange}
 						/>
 					</Form.Group>
@@ -79,7 +79,7 @@ export default function Update({ uuid }) {
 						Close
 					</Button>
 					<Button variant="primary" onClick={handleSubmit}>
-						Tambah
+						Update
 					</Button>
 				</Modal.Footer>
 			</Modal>

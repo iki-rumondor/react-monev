@@ -8,12 +8,14 @@ import useLoading from "../../hooks/useLoading";
 import toast from "react-hot-toast";
 import { fetchAPI } from "../../utils/Fetching";
 import moment from "moment";
+import { StislaAlert } from "../../layout/alert/StislaAlert";
 
 export const ProdiDashboard = () => {
 	const { setIsLoading } = useLoading();
 	const uuid = getUserUuid();
 	const [values, setValues] = useState(null);
 	const [data, setData] = useState(null);
+	const [year, setYear] = useState(null);
 
 	const handleLoad = async () => {
 		try {
@@ -25,8 +27,10 @@ export const ProdiDashboard = () => {
 			setData({
 				...data,
 				subject: s_res?.data?.length,
-				teacher: t_res?.data?.length
+				teacher: t_res?.data?.length,
 			});
+			const res3 = await fetchAPI("/api/academic-years/current");
+			setYear(res3.data);
 		} catch (error) {
 			toast.error(error);
 		} finally {
@@ -44,9 +48,14 @@ export const ProdiDashboard = () => {
 				header={`Selamat Datang, Koordinator Prodi ${values?.name}`}
 			>
 				<div className="row">
+					<div className="col-12">
+						<StislaAlert year={year} />
+					</div>
+				</div>
+				<div className="row">
 					<CardDashboard
 						title={"Tanggal"}
-						value={moment().format('DD MMM YYYY')}
+						value={moment().format("DD MMM YYYY")}
 						icon="fa-calendar-alt"
 						color="success"
 					/>
@@ -58,13 +67,13 @@ export const ProdiDashboard = () => {
 					/>
 					<CardDashboard
 						title={"Jumlah Mata Kuliah"}
-						value={data?.subject}
+						value={data?.subject ?? 0}
 						icon="fa-book"
 						color="danger"
 					/>
 					<CardDashboard
 						title={"Jumlah Dosen"}
-						value={data?.teacher}
+						value={data?.teacher ?? 0}
 						icon="fa-users"
 						color="warning"
 					/>

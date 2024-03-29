@@ -7,6 +7,7 @@ import { Content } from "./Content";
 import toast from "react-hot-toast";
 import { fetchAPI, postAPI } from "../../../utils/Fetching";
 import { useParams } from "react-router-dom";
+import { WordCloud } from "../../../layout/chart/WordCloud";
 
 export default function Monitoring() {
 	const { isSuccess, setIsLoading, setIsSuccess } = useLoading();
@@ -30,6 +31,14 @@ export default function Monitoring() {
 	];
 
 	const steps = [
+		{
+			name: "Persentase Ketersediaan RPS",
+			value: "rps",
+		},
+		{
+			name: "Word Cloud Keterampilan Dosen",
+			value: "skills",
+		},
 		{
 			name: "Monev Awal Semester",
 			value: "1",
@@ -106,7 +115,7 @@ export default function Monitoring() {
 				<Card>
 					<CardBody>
 						<Form.Group className="mb-3" controlId="step">
-							<Form.Label>Pilih Tahapan Monitoring</Form.Label>
+							<Form.Label>Pilih Grafik</Form.Label>
 							<Form.Control
 								as="select"
 								name="step"

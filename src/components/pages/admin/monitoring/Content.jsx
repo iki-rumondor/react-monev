@@ -3,6 +3,8 @@ import { ChartModel } from "../../../layout/chart/ApexChart";
 import useLoading from "../../../hooks/useLoading";
 import toast from "react-hot-toast";
 import { fetchAPI } from "../../../utils/Fetching";
+import Chart from "react-apexcharts";
+import { WordCloud } from "../../../layout/chart/WordCloud";
 
 export const Content = ({ step = "1", departmentID, yearID }) => {
 	const { setIsLoading } = useLoading();
@@ -14,8 +16,8 @@ export const Content = ({ step = "1", departmentID, yearID }) => {
 				`/api/monev/departments/${departmentID}/years/${yearID}`
 			);
 			setValues(res.data);
+			console.log(res.data);
 		} catch (error) {
-			console.log(error);
 			toast.error(error);
 		} finally {
 			setIsLoading(false);
@@ -24,9 +26,32 @@ export const Content = ({ step = "1", departmentID, yearID }) => {
 
 	useEffect(() => {
 		handleLoad();
-	}, []);
+	}, [departmentID]);
 
 	switch (step) {
+		case "rps":
+			const rps_options = {
+				labels: ["Tersedia RPS", "Tidak Tersedia RPS"],
+				dataLabels: {
+					enabled: true,
+					formatter: function (val) {
+						return val + "%";
+					},
+				},
+			};
+			return (
+				<Chart
+					width={600}
+					options={rps_options}
+					series={[
+						values?.plansAvailable,
+						values?.subjects - values?.plansAvailable,
+					]}
+					type={"pie"}
+				/>
+			);
+		case "skills":
+			return <WordCloud text={values?.skills} />;
 		case "1":
 			const first_categories = [
 				"RPS",
@@ -50,7 +75,7 @@ export const Content = ({ step = "1", departmentID, yearID }) => {
 				/>
 			);
 		case "2":
-			 const middle_categories = [
+			const middle_categories = [
 				"Kehadiran Dosen",
 				"Kehadiran Mahasiswa",
 				"Mata Kuliah Sesuai RPS",
