@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import useLoading from "../../../../hooks/useLoading";
 import { fetchAPI, postAPI } from "../../../../utils/Fetching";
 
 export default function Create({ yearUuid }) {
-	const { setIsLoading, setIsSuccess } = useLoading();
+	const { setIsLoading, setIsSuccess, isSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 	const [subjects, setSubjects] = useState(null);
-
-	const [values, setValues] = useState({
+	const defaultValue = {
+		class: "",
 		student_amount: "",
 		middle: "",
 		subject_uuid: "",
 		academic_year_uuid: yearUuid,
-	});
+	};
+	const [values, setValues] = useState(defaultValue);
 
 	const handleChange = (e) => {
 		setValues({ ...values, [e.target.name]: e.target.value });
@@ -24,13 +25,12 @@ export default function Create({ yearUuid }) {
 		setShow(false);
 	};
 
-	const handleShow = async () => {
-		setShow(true);
+	const handleShow = () => setShow(true);
+
+	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const s_res = await fetchAPI(
-				`/api/subjects/student-attendences/years/${yearUuid}`
-			);
+			const s_res = await fetchAPI(`/api/subjects`);
 			setSubjects(s_res.data);
 		} catch (error) {
 			toast.error(error);
@@ -40,7 +40,7 @@ export default function Create({ yearUuid }) {
 	};
 
 	const handleSubmit = async () => {
-		handleClose();
+		// handleClose();
 		try {
 			setIsSuccess(false);
 			setIsLoading(true);
@@ -51,18 +51,17 @@ export default function Create({ yearUuid }) {
 			);
 			toast.success(res.message);
 			setIsSuccess(true);
-			setValues({
-				...values,
-				student_amount: "",
-				middle: "",
-				subject_uuid: "",
-			});
+			setValues(defaultValue);
 		} catch (error) {
 			toast.error(error);
 		} finally {
 			setIsLoading(false);
 		}
 	};
+
+	useEffect(() => {
+		handleLoad();
+	}, [isSuccess]);
 
 	return (
 		<>
@@ -103,6 +102,14 @@ export default function Create({ yearUuid }) {
 									</option>
 								))}
 						</Form.Control>
+					</Form.Group>
+					<Form.Group className="mb-3" controlId="class">
+						<Form.Label>Kelas</Form.Label>
+						<Form.Control
+							name="class"
+							value={values?.class}
+							onChange={handleChange}
+						/>
 					</Form.Group>
 					<Form.Group className="mb-3" controlId="student_amount">
 						<Form.Label>Jumlah Mahasiswa</Form.Label>

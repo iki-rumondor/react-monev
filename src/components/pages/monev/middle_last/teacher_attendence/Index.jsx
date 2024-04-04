@@ -52,6 +52,7 @@ export default function MiddleLastTeacherAttendences() {
 								<tr>
 									<th>No</th>
 									<th>Mata Kuliah</th>
+									<th>Kelas</th>
 									<th>Persentase Tengah Semester</th>
 									<th>Persentase Akhir Semester</th>
 									{year?.status == "3" && <th>Aksi</th>}
@@ -63,6 +64,7 @@ export default function MiddleLastTeacherAttendences() {
 										<tr key={idx}>
 											<td>{idx + 1}</td>
 											<td>{item.subject.name}</td>
+											<td>{item.class}</td>
 											<td>{item.middle}%</td>
 											<td>{item.last}%</td>
 											{year?.status == "3" && (

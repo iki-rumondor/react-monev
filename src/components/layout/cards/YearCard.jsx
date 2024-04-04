@@ -10,7 +10,7 @@ export const YearCard = ({ name, link, open, status, head }) => {
 		"Monev Tengah Semester",
 		"Monev Sebelum UAS",
 		"Monev Setelah UAS",
-	]
+	];
 
 	if (open) {
 		color = "primary";
@@ -31,7 +31,7 @@ export const YearCard = ({ name, link, open, status, head }) => {
 					{head ? (
 						<div>
 							<span>Status : </span>
-							<strong>{status}</strong>
+							<strong>{statusName[status]}</strong>
 						</div>
 					) : (
 						<div>

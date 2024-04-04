@@ -14,7 +14,6 @@ export default function Monitoring() {
 	const [show, setShow] = useState(false);
 	const [departments, setDepartments] = useState(false);
 	const [depSelected, setDepSelected] = useState("");
-	const [step, setStep] = useState("");
 	const [year, setYear] = useState(null);
 	const { yearID } = useParams();
 
@@ -36,24 +35,20 @@ export default function Monitoring() {
 			value: "rps",
 		},
 		{
+			name: "Persentase Ketersediaan Modul Praktikum",
+			value: "modul",
+		},
+		{
 			name: "Word Cloud Keterampilan Dosen",
 			value: "skills",
 		},
 		{
-			name: "Monev Awal Semester",
-			value: "1",
+			name: "Persentase Kehadiran Dosen Per Kelas",
+			value: "teacher_attendance",
 		},
 		{
-			name: "Monev Tengah Semester",
-			value: "2",
-		},
-		{
-			name: "Monev Sebelum UAS",
-			value: "3",
-		},
-		{
-			name: "Monev Setelah UAS",
-			value: "4",
+			name: "Persentase Kehadiran Mahasiswa Yang Lebih Dari 75% Per Kelas",
+			value: "student_attendance",
 		},
 	];
 
@@ -66,16 +61,15 @@ export default function Monitoring() {
 	const handleLoad = async () => {
 		try {
 			setIsLoading(true);
-			const res = await fetchAPI(`/api/settings`);
-			res.data.map((item) => {
-				if (item.name == "step_monev") {
-					setValues({
-						id: item.id,
-						step: item.value,
-					});
-					setStep(item.value);
-				}
-			});
+			// const res = await fetchAPI(`/api/settings`);
+			// res.data.map((item) => {
+			// 	if (item.name == "step_monev") {
+			// 		setValues({
+			// 			id: item.id,
+			// 			step: item.value,
+			// 		});
+			// 	}
+			// });
 			const d_res = await fetchAPI(`/api/departments`);
 			setDepartments(d_res.data);
 			const y_res = await fetchAPI(`/api/academic-years/${yearID}`);
@@ -115,13 +109,16 @@ export default function Monitoring() {
 				<Card>
 					<CardBody>
 						<Form.Group className="mb-3" controlId="step">
-							<Form.Label>Pilih Grafik</Form.Label>
+							<Form.Label>
+								Grafik Monitoring Pembelajaran
+							</Form.Label>
 							<Form.Control
 								as="select"
 								name="step"
-								value={values?.step}
+								value={values.step}
 								onChange={handleChange}
 							>
+								<option value="" disabled>Pilih Grafik</option>
 								{steps.map((item, idx) => (
 									<option key={idx} value={item.value}>
 										{item.name}
@@ -154,7 +151,7 @@ export default function Monitoring() {
 							</Form.Control>
 						</Form.Group>
 						{depSelected !== "" && (
-							<div className="p-lg-4">
+							<div className="p-lg-4 m-auto">
 								<Content
 									step={values.step}
 									departmentID={depSelected}

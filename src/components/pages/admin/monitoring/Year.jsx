@@ -36,6 +36,7 @@ export const YearMonitoring = () => {
 								name={item.name}
 								status={item.status}
 								link={`/monitoring/years/${item.uuid}`}
+								head={true}
 							/>
 						))}
 				</Row>

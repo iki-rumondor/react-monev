@@ -63,6 +63,7 @@ export default function MiddleLastStudentAttendences() {
 								<tr>
 									<th>No</th>
 									<th>Mata Kuliah</th>
+									<th>Kelas</th>
 									<th>Jumlah Mahasiswa</th>
 									<th>Persentase Tengah</th>
 									<th>Persentase Akhir</th>
@@ -75,6 +76,7 @@ export default function MiddleLastStudentAttendences() {
 										<tr key={idx}>
 											<td>{idx + 1}</td>
 											<td>{item.subject.name}</td>
+											<td>{item.class}</td>
 											<td>{item.student_amount}</td>
 											<td>
 												{Math.round(

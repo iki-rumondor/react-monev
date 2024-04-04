@@ -60,6 +60,7 @@ export default function MiddleStudentAttendences() {
 								<tr>
 									<th>No</th>
 									<th>Mata Kuliah</th>
+									<th>Kelas</th>
 									<th>Jumlah Mahasiswa</th>
 									<th>Persentase Kehadiran</th>
 									{year?.status == "2" && <th>Aksi</th>}
@@ -71,6 +72,7 @@ export default function MiddleStudentAttendences() {
 										<tr key={idx}>
 											<td>{idx + 1}</td>
 											<td>{item.subject.name}</td>
+											<td>{item.class}</td>
 											<td>{item.student_amount}</td>
 											<td>
 												{Math.round(

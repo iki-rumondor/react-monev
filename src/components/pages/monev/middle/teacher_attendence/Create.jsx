@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import useLoading from "../../../../hooks/useLoading";
 import { fetchAPI, postAPI } from "../../../../utils/Fetching";
 
 export default function Create({ yearUuid }) {
-	const { setIsLoading, setIsSuccess } = useLoading();
+	const { setIsLoading, setIsSuccess, isSuccess } = useLoading();
 	const [show, setShow] = useState(false);
 	const [subjects, setSubjects] = useState(null);
 	const [teachers, setTeachers] = useState(null);
@@ -14,8 +14,9 @@ export default function Create({ yearUuid }) {
 		middle: "",
 		teacher_uuid: "",
 		subject_uuid: "",
+		class: "",
 		academic_year_uuid: yearUuid,
-	}
+	};
 
 	const [values, setValues] = useState(defaultValue);
 
@@ -27,25 +28,11 @@ export default function Create({ yearUuid }) {
 		setShow(false);
 	};
 
-	const handleShow = async () => {
+	const handleShow = () => {
 		setShow(true);
-		try {
-			setIsLoading(true);
-			const s_res = await fetchAPI(
-				`/api/subjects/teacher-attendences/years/${yearUuid}`
-			);
-			setSubjects(s_res.data);
-			const t_res = await fetchAPI(`/api/teachers`);
-			setTeachers(t_res.data);
-		} catch (error) {
-			toast.error(error);
-		} finally {
-			setIsLoading(false);
-		}
 	};
 
 	const handleSubmit = async () => {
-		handleClose();
 		try {
 			setIsSuccess(false);
 			setIsLoading(true);
@@ -63,6 +50,24 @@ export default function Create({ yearUuid }) {
 			setIsLoading(false);
 		}
 	};
+
+	const handleLoad = async () => {
+		try {
+			setIsLoading(true);
+			const s_res = await fetchAPI(`/api/subjects`);
+			setSubjects(s_res.data);
+			const t_res = await fetchAPI(`/api/teachers`);
+			setTeachers(t_res.data);
+		} catch (error) {
+			toast.error(error);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		handleLoad();
+	}, [isSuccess]);
 
 	return (
 		<>
@@ -103,6 +108,14 @@ export default function Create({ yearUuid }) {
 									</option>
 								))}
 						</Form.Control>
+					</Form.Group>
+					<Form.Group className="mb-3" controlId="class">
+						<Form.Label>Kelas</Form.Label>
+						<Form.Control
+							name="class"
+							value={values?.class}
+							onChange={handleChange}
+						/>
 					</Form.Group>
 					<Form.Group className="mb-3" controlId="teacher">
 						<Form.Label>Penanggung Jawab Mata Kuliah</Form.Label>

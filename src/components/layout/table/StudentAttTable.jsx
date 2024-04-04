@@ -51,6 +51,7 @@ export const StudentAttTable = ({ departmentID, yearID }) => {
 					<tr>
 						<th>No</th>
 						<th>Mata Kuliah</th>
+						<th>Kelas</th>
 						<th>Jumlah Mahasiswa</th>
 						<th>Persentase Tengah Semester</th>
 						<th>Persentase Akhir Semester</th>
@@ -62,6 +63,7 @@ export const StudentAttTable = ({ departmentID, yearID }) => {
 							<tr key={idx}>
 								<td>{idx + 1}</td>
 								<td>{item.subject.name}</td>
+								<td>{item.class}</td>
 								<td>{item.student_amount}</td>
 								<td>
 									{Math.round(
