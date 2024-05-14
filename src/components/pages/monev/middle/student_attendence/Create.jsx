@@ -140,6 +140,15 @@ export default function Create({ yearUuid }) {
 					<Button variant="primary" onClick={handleSubmit}>
 						Tambah
 					</Button>
+					<Button
+						variant="warning"
+						onClick={() => {
+							handleClose();
+							handleSubmit();
+						}}
+					>
+						Tambah & Keluar
+					</Button>
 				</Modal.Footer>
 			</Modal>
 		</>
