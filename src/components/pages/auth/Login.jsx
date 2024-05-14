@@ -18,7 +18,7 @@ export default function Login() {
 					<div className="d-flex align-items-center col-lg-4 col-12 order-lg-1 min-vh-100 order-2 bg-white">
 						<div className="p-4 m-auto">
 							<h2 className="text-dark">SIMPEL</h2>
-							<p className="text-dark">Sistem Informasi Monitoring Perkuliahan</p>
+							<p className="text-dark">Sistem Informasi Monitoring Pembelajaran</p>
 							<p className="text-muted">
 								Silahkan masukkan username dan password untuk
 								masuk!

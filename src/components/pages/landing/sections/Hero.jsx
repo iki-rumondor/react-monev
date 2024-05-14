@@ -13,7 +13,7 @@ export const Hero = () => {
 				<h1>
 					Selamat Datang Di <span>Simpel</span>
 				</h1>
-				<p>Sistem Informasi Monitoring Perkuliahan Program Studi</p>
+				<p>Sistem Informasi Monitoring Pembelajaran Program Studi</p>
 				<div className="d-flex">
 					{token ? (
 						<a href="/home" className="btn-get-started scrollto">
