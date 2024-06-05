@@ -15,14 +15,14 @@ export default function Navbar() {
           </ul>
         </form>
         <ul className="navbar-nav navbar-right">
-          <MessagesDropdown>
+          {/* <MessagesDropdown>
             <MessagesDropdown.List name='Ilham'></MessagesDropdown.List>
           </MessagesDropdown>
           <NotificationDropdown>
             <NotificationDropdown.List>Contoh</NotificationDropdown.List>
-          </NotificationDropdown>
+          </NotificationDropdown> */}
           <ProfileDropdown>
-            <ProfileDropdown.Link>Profile</ProfileDropdown.Link>
+            {/* <ProfileDropdown.Link>Profile</ProfileDropdown.Link> */}
           </ProfileDropdown>
         </ul>
       </nav>
