@@ -2,7 +2,7 @@ import axios from "axios";
 import useSWR from "swr";
 
 const accessToken = sessionStorage.getItem("token");
-const baseAPIUrl = process.env.API_URL || "http://localhost:8083";
+const baseAPIUrl = import.meta.env.VITE_API_URL || "http://localhost:8083";
 
 const fetcher = async (url) => {
 	const response = await fetch(`${baseAPIUrl}${url}`, {
