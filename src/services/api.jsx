@@ -1,6 +1,6 @@
 import { getUserUuid, handleApiResponse } from "./utils";
 
-const BASE_URL = "http://localhost:8081/api";
+const BASE_URL = process.env.API_URL || "http://localhost:8083/api";
 const token = sessionStorage.getItem("token");
 
 export const fetchData = async (endpoint, credential = true, options = {}) => {

@@ -2,7 +2,7 @@ import axios from "axios";
 import useSWR from "swr";
 
 const accessToken = sessionStorage.getItem("token");
-const baseAPIUrl = "http://localhost:8081";
+const baseAPIUrl = process.env.API_URL || "http://localhost:8083";
 
 const fetcher = async (url) => {
 	const response = await fetch(`${baseAPIUrl}${url}`, {
